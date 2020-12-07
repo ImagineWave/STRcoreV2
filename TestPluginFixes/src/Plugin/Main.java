@@ -7,8 +7,7 @@ import java.io.IOException;
 
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
+
 
 
 public class Main extends JavaPlugin {
