@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="TestPluginFixes:jar">
+    <output-path>$USER_HOME$/Desktop/SPIDgot/plugins</output-path>
+    <root id="archive" name="TestPluginFixes.jar">
+      <element id="module-output" name="TestPluginFixes" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/SPIDgot/15/spigot-1.13.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

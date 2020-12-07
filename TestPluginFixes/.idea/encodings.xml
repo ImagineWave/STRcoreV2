@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/Plugin/Angel.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/Plugin/Handler.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/Plugin/Main.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/Plugin/MuteChecker.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/Plugin/MuteSetter.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/Plugin/PrivateMsgs.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/Plugin/gm.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/Plugin/home.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/Plugin/vanish.java" charset="windows-1251" />
+  </component>
+</project>
