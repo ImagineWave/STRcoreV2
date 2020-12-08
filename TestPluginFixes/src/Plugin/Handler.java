@@ -28,8 +28,6 @@ public Handler(Main plugin) {
 @EventHandler
 	public void spawnplayer(PlayerJoinEvent e) {
 	Player p = e.getPlayer();
-	//Location spawn = SpawnToLoc();
-	//p.setBedSpawnLocation(spawn, true);
 	String name = p.getName();
 	MessageManager.getManager().msg(p, MessageType.INFO, "Добро пожаловать на сервер, "+ name);
 	File players = new File(plugin.getDataFolder() + File.separator + "players.yml");
@@ -37,12 +35,14 @@ public Handler(Main plugin) {
 	List<String> list = users.getStringList("users");//govno ebanoe
 	if(list.contains(p.getName())) return;
 	{
+		Home home = new Home(); // Штука для установки точки дома
 		list.add(p.getName());
 		Location spawn = SpawnToLoc();
 		p.teleport(spawn);
 		Bukkit.broadcastMessage("§aПоприветствуем нового игрока §d§l" + p.getName()+"§a на §b§lSTR§a§lmine§a!");
 		p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 600, 4), true);
 		p.setBedSpawnLocation(spawn, true);
+		home.locToConfig(p.getName(), spawn); // Установка точки дома на спауне
 	}
 	users.set("users", list);
 	try {

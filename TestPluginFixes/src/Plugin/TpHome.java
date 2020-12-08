@@ -14,10 +14,10 @@ import org.bukkit.entity.Player;
 import Plugin.MessageManager.MessageType;
 
 
-public class tphome implements CommandExecutor {
+public class TpHome implements CommandExecutor {
 	
 	private Main plugin;
-	public tphome(Main plugin) {
+	public TpHome(Main plugin) {
 		this.plugin = plugin;	
 		}
 	public boolean checksender (CommandSender sender) {

@@ -13,10 +13,10 @@ import org.bukkit.entity.Player;
 
 import Plugin.MessageManager.MessageType;
 
-public class tpSpawn implements CommandExecutor {
+public class TpSpawn implements CommandExecutor {
 	
 	private Main plugin;
-	public tpSpawn(Main plugin) {
+	public TpSpawn(Main plugin) {
 		this.plugin = plugin;	
 		}
 	public boolean checksender (CommandSender sender) {

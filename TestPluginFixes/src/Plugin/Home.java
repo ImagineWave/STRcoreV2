@@ -14,12 +14,13 @@ import org.bukkit.entity.Player;
 
 import Plugin.MessageManager.MessageType;
 
-public class home implements CommandExecutor {
+public class Home implements CommandExecutor {
 	
 	private Main plugin;
-	public home(Main plugin) {
+	public Home(Main plugin) {
 		this.plugin = plugin;	
 		}
+	public Home() {}
 
 	public boolean checksender (CommandSender sender) {
 		if (sender instanceof Player) {

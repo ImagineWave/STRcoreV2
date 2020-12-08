@@ -13,10 +13,10 @@ import org.bukkit.entity.Player;
 
 import Plugin.MessageManager.MessageType;
 
-public class setspawn implements CommandExecutor{
+public class SetSpawn implements CommandExecutor{
 	
 	private Main plugin;
-	public setspawn(Main plugin) {
+	public SetSpawn(Main plugin) {
 		this.plugin = plugin;	
 		}
 

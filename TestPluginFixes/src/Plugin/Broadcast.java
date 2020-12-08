@@ -7,9 +7,9 @@ import org.bukkit.command.CommandSender;
 
 import Plugin.MessageManager.MessageType;
 
-public class broadcast implements CommandExecutor {
+public class Broadcast implements CommandExecutor {
 
-	public broadcast(Main main) {}
+	public Broadcast(Main main) {}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

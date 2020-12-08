@@ -20,10 +20,10 @@ import org.bukkit.potion.PotionEffectType;
 
 import Plugin.MessageManager.MessageType;
 
-public class vanish implements CommandExecutor, Listener{
+public class Vanish implements CommandExecutor, Listener{
 
 	private Main plugin;
-	public vanish(Main plugin) {
+	public Vanish(Main plugin) {
 		this.plugin = plugin;
 	}
 	@SuppressWarnings("deprecation")

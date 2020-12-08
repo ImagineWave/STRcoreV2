@@ -17,16 +17,16 @@ public class Main extends JavaPlugin {
 	public void onEnable() {
 		Bukkit.getServer().getPluginManager().registerEvents(new Handler(this), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new MuteChecker(this), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new vanish(this), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new Vanish(this), this);
 		getCommand("gm").setExecutor(new gm(this));
-		getCommand("sethome").setExecutor(new home(this));
-		getCommand("savespawn").setExecutor(new setspawn(this));
-		getCommand("home").setExecutor(new tphome(this));
-		getCommand("spawn").setExecutor(new tpSpawn(this));
+		getCommand("sethome").setExecutor(new Home(this));
+		getCommand("savespawn").setExecutor(new SetSpawn(this));
+		getCommand("home").setExecutor(new TpHome(this));
+		getCommand("spawn").setExecutor(new TpSpawn(this));
 		getCommand("tempmute").setExecutor(new MuteSetter(this));
 		getCommand("pm").setExecutor(new PrivateMsgs(this));
-		getCommand("vanish").setExecutor(new vanish(this));
-		getCommand("broadcast").setExecutor(new broadcast(this));
+		getCommand("vanish").setExecutor(new Vanish(this));
+		getCommand("broadcast").setExecutor(new Broadcast(this));
 		getCommand("sreload").setExecutor(new ReloadCMD(this));
 		getCommand("endercheck").setExecutor(new Plugin.Inventory.EndInvCheck(this));
 		getCommand("invcheck").setExecutor(new Plugin.Inventory.InvCheck(this));
