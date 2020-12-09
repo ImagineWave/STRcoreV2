@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 
 /**
  * @author 600798
@@ -19,9 +20,12 @@ public class StrPlayer {
 	
 	public StrPlayer(String ip, boolean boolean1, long long1, String string2, boolean boolean2, long long2,
 			String string3, boolean boolean3, String string4, boolean boolean4, boolean boolean5, boolean boolean6,
-			long long3) {
-		// TODO Auto-generated constructor stub
+			long long3) {}
+	
+	public StrPlayer(Player p) {
+		this.nickname = p.getName();
 	}
+
 	public String getNickname() {
 		return nickname;
 	}

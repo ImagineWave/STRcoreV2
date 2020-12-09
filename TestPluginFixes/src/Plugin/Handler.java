@@ -43,6 +43,8 @@ public Handler(Main plugin) {
 		p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 600, 4), true);
 		p.setBedSpawnLocation(spawn, true);
 		home.locToConfig(p.getName(), spawn); // Установка точки дома на спауне
+		StrPlayer spl = new StrPlayer(p);
+		spl.setPlayTime(System.currentTimeMillis());
 	}
 	users.set("users", list);
 	try {
