@@ -3,6 +3,7 @@ package Plugin;
 import java.io.File;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -42,14 +43,17 @@ public void MuteCheckers(AsyncPlayerChatEvent e) {
 	
 	
 }
-
+@EventHandler
 public void MuteCheckers2(AsyncPlayerChatEvent e) {
+	
 	Player p = e.getPlayer();
-	StrPlayer spl = new StrPlayer(plugin);
-	spl.getPlayerCfg(p.getName());
+	StrPlayer spl = new StrPlayer(p,plugin);
+	//StrPlayer spl = s.getPlayerCfg(p.getName());
 	Long duration = spl.getMuteTime();
 	Long qtime = System.currentTimeMillis();
 	String reason = spl.getMuteReason();
+	String name = spl.getNickname();
+	Bukkit.broadcastMessage("Попiвся "+duration+" "+reason+" "+name);
 	if(duration>qtime) {
 			e.setCancelled(true);
 			MessageManager.getManager().msg(p, MessageType.BAD, "У вас блокировка чата еще §6"+ (duration - qtime)/1000 + " §cсекунд по причине §6" + reason);

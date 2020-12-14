@@ -3,6 +3,7 @@ package Plugin;
 import java.io.File;
 import java.io.IOException;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -16,16 +17,52 @@ public class StrPlayer {
 	private Main plugin;
 	public StrPlayer(Main plugin) {
 		this.plugin = plugin;
+		Bukkit.broadcastMessage("test2");
 	}
 	
-	public StrPlayer(String ip, boolean boolean1, long long1, String string2, boolean boolean2, long long2,
-			String string3, boolean boolean3, String string4, boolean boolean4, boolean boolean5, boolean boolean6,
-			long long3) {}
+	public StrPlayer(String ip, boolean banned, long banTime, String banReason, boolean muted, long muteTime,
+			String muteReason, boolean flying, String flyReason, boolean invurable, boolean vanished, boolean saturated,
+			long playTime) {
+		Bukkit.broadcastMessage("test3");
+		this.ip = ip;
+		this.banned = banned;
+		this.banTime = banTime;
+		this.banReason = banReason;
+		this.muted = muted;
+		this.muteTime = muteTime;
+		this.muteReason = muteReason;
+		this.flying = flying;
+		this.flyReason = flyReason;
+		this.invurable = invurable;
+		this.vanished = vanished;
+		this.saturated = saturated;
+		this.playTime = playTime;
+		Bukkit.broadcastMessage("Mute Reason = "+ muteReason);
+		
+		
+	}
 	
 	public StrPlayer(Player p, Main plugin) {
-		this.nickname = p.getName();
 		this.plugin = plugin;
+		Bukkit.broadcastMessage("test");
+		StrPlayer spl = getPlayerCfg(p.getName());
+		this.nickname = p.getName();
+		this.ip = spl.getIp();
+		this.banned = spl.getBanned();
+		this.banTime = banTime;
+		this.banReason = banReason;
+		this.muted = muted;
+		this.muteTime = spl.getMuteTime();
+		this.muteReason = spl.getMuteReason();
+		this.flying = flying;
+		this.flyReason = flyReason;
+		this.invurable = invurable;
+		this.vanished = vanished;
+		this.saturated = saturated;
+		this.playTime = playTime;
 	}
+
+
 
 	public String getNickname() {
 		return nickname;
@@ -165,18 +202,19 @@ public class StrPlayer {
 		//h.getDouble("locations." + name + ".x"),
 		StrPlayer p = new StrPlayer(
 				f.getString(name+".ip"),
-				f.getBoolean(nickname+".banned"),
-				f.getLong(nickname+".banTime"),
-				f.getString(nickname+".banReason"),
-				f.getBoolean(nickname+".muted"),
-				f.getLong(nickname+".muteTime"),
-				f.getString(nickname+".muteReason"),
-				f.getBoolean(nickname+".flying"),
-				f.getString(nickname+".flyReason"),
-				f.getBoolean(nickname+".invurable"),
-				f.getBoolean(nickname+".vanished"),
-				f.getBoolean(nickname+".saturated"),
-				f.getLong(nickname+".playTime"));
+				f.getBoolean(name+".banned"),
+				f.getLong(name+".banTime"),
+				f.getString(name+".banReason"),
+				f.getBoolean(name+".muted"),
+				f.getLong(name+".muteTime"),
+				f.getString(name+".muteReason"),
+				f.getBoolean(name+".flying"),
+				f.getString(name+".flyReason"),
+				f.getBoolean(name+".invurable"),
+				f.getBoolean(name+".vanished"),
+				f.getBoolean(name+".saturated"),
+				f.getLong(name+".playTime"));
+		Bukkit.broadcastMessage("testCFG");
 		return p;
 	}
 	
