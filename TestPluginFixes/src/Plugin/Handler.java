@@ -42,7 +42,6 @@ public Handler(Main plugin) {
 		Bukkit.broadcastMessage("§aПоприветствуем нового игрока §d§l" + p.getName()+"§a на §b§lSTR§a§lmine§a!");
 		p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 600, 4), true);
 		p.setBedSpawnLocation(spawn, true);
-		Bukkit.broadcastMessage(p.getName()+" "+spawn.toString());
 		home.locToConfig(p.getName(),spawn); // Установка точки дома на спауне
 		StrPlayer spl = new StrPlayer(p);
 		spl.setPlayTime(System.currentTimeMillis());
