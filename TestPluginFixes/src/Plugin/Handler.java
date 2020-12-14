@@ -35,14 +35,15 @@ public Handler(Main plugin) {
 	List<String> list = users.getStringList("users");//govno ebanoe
 	if(list.contains(p.getName())) return;
 	{
-		Home home = new Home(); // Штука для установки точки дома
+		Home home = new Home(plugin); // Штука для установки точки дома
 		list.add(p.getName());
 		Location spawn = SpawnToLoc();
 		p.teleport(spawn);
 		Bukkit.broadcastMessage("§aПоприветствуем нового игрока §d§l" + p.getName()+"§a на §b§lSTR§a§lmine§a!");
 		p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 600, 4), true);
 		p.setBedSpawnLocation(spawn, true);
-		home.locToConfig(p.getName(), spawn); // Установка точки дома на спауне
+		Bukkit.broadcastMessage(p.getName()+" "+spawn.toString());
+		home.locToConfig(p.getName(),spawn); // Установка точки дома на спауне
 		StrPlayer spl = new StrPlayer(p);
 		spl.setPlayTime(System.currentTimeMillis());
 	}

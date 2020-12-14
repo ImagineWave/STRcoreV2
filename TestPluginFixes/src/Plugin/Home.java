@@ -19,9 +19,7 @@ public class Home implements CommandExecutor {
 	private Main plugin;
 	public Home(Main plugin) {
 		this.plugin = plugin;	
-		}
-	public Home() {}
-
+	}
 	public boolean checksender (CommandSender sender) {
 		if (sender instanceof Player) {
 			return false;
