@@ -17,13 +17,11 @@ public class StrPlayer {
 	private Main plugin;
 	public StrPlayer(Main plugin) {
 		this.plugin = plugin;
-		Bukkit.broadcastMessage("test2");
 	}
 	
 	public StrPlayer(String ip, boolean banned, long banTime, String banReason, boolean muted, long muteTime,
 			String muteReason, boolean flying, String flyReason, boolean invurable, boolean vanished, boolean saturated,
 			long playTime) {
-		Bukkit.broadcastMessage("test3");
 		this.ip = ip;
 		this.banned = banned;
 		this.banTime = banTime;
@@ -37,14 +35,12 @@ public class StrPlayer {
 		this.vanished = vanished;
 		this.saturated = saturated;
 		this.playTime = playTime;
-		Bukkit.broadcastMessage("Mute Reason = "+ muteReason);
 		
 		
 	}
 	
 	public StrPlayer(Player p, Main plugin) {
 		this.plugin = plugin;
-		Bukkit.broadcastMessage("test");
 		StrPlayer spl = getPlayerCfg(p.getName());
 		this.nickname = p.getName();
 		this.ip = spl.getIp();
@@ -214,7 +210,6 @@ public class StrPlayer {
 				f.getBoolean(name+".vanished"),
 				f.getBoolean(name+".saturated"),
 				f.getLong(name+".playTime"));
-		Bukkit.broadcastMessage("testCFG");
 		return p;
 	}
 	
