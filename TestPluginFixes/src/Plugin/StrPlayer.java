@@ -22,8 +22,9 @@ public class StrPlayer {
 			String string3, boolean boolean3, String string4, boolean boolean4, boolean boolean5, boolean boolean6,
 			long long3) {}
 	
-	public StrPlayer(Player p) {
+	public StrPlayer(Player p, Main plugin) {
 		this.nickname = p.getName();
+		this.plugin = plugin;
 	}
 
 	public String getNickname() {

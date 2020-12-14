@@ -42,4 +42,23 @@ public void MuteCheckers(AsyncPlayerChatEvent e) {
 	
 	
 }
+
+public void MuteCheckers2(AsyncPlayerChatEvent e) {
+	Player p = e.getPlayer();
+	StrPlayer spl = new StrPlayer(plugin);
+	spl.getPlayerCfg(p.getName());
+	Long duration = spl.getMuteTime();
+	Long qtime = System.currentTimeMillis();
+	String reason = spl.getMuteReason();
+	if(duration>qtime) {
+			e.setCancelled(true);
+			MessageManager.getManager().msg(p, MessageType.BAD, "У вас блокировка чата еще §6"+ (duration - qtime)/1000 + " §cсекунд по причине §6" + reason);
+			return;
+		}
+	
+	
+	
+}
+
+
 }

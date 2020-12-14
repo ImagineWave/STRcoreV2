@@ -101,4 +101,9 @@ public class MuteSetter implements CommandExecutor{
 			e1.printStackTrace();
 		}
 	 }
+	public void StrPlayerToMute(Player p, Long time, String reason) {
+		StrPlayer spl = new StrPlayer(plugin);
+		spl.getPlayerCfg(p.getName());
+		
+	}
 }
