@@ -88,7 +88,7 @@ public class MuteSetter implements CommandExecutor{
 		spl.setMuteTime(time);
 		spl.setMutedBy(m.getName());
 		spl.setPlayerCfg(spl);
-		String msgduration = formatDuration(time);
+		String msgduration = formatDuration(time/1000);
 		Bukkit.broadcastMessage("§7[§cНаказание§7]: §6"+ m.getName()+" §bзамутил игрока §6"+p.getName()+"§b на §6" + msgduration+ "§b по причине §6" + reason);
 		MessageManager.getManager().msg(p, MessageType.BAD, "Вас замутил §6"+m.getName()+"§c на §6" + msgduration+ "§c по причине §6" + reason);
 	}
