@@ -32,11 +32,12 @@ public class MuteSetter implements CommandExecutor{
 		 }
 		 if(args.length == 1) {
 			 Player t = (Bukkit.getPlayerExact(args[0]));
-			 if(!canRewriteMute(t, p)) {
-				 MessageManager.getManager().msg(p, MessageType.BAD, "Вы не можете снять мут, выданный другим игроком");
+			 if(canRewriteMute(t, p)) {
+				 unmutePlayer(t,p);
 				 return true;
 			 }
-			 unmutePlayer(t,p);
+			 MessageManager.getManager().msg(p, MessageType.BAD, "Вы не можете снять мут, выданный другим игроком");
+			 return true;
 		 }
 		 if(args.length >= 2) {
 			 Player t = (Bukkit.getPlayerExact(args[0]));
@@ -51,7 +52,7 @@ public class MuteSetter implements CommandExecutor{
 				 return true;
 			 }
 			 if(!canRewriteMute(t, p)) {
-				 MessageManager.getManager().msg(p, MessageType.BAD, "Вы не можете снять мут, выданный другим игроком");
+				 MessageManager.getManager().msg(p, MessageType.BAD, "Вы не можете изменить мут, выданный другим игроком");
 				 return true;
 			 }
 			 Long qtime = System.currentTimeMillis() + time*1000;
@@ -67,9 +68,8 @@ public class MuteSetter implements CommandExecutor{
 	}
 	
 	public Boolean canRewriteMute (Player p, Player muter) {
-		StrPlayer spl = new StrPlayer(plugin);
-		spl.getPlayerCfg(p.getName());
-		if(spl.getMutedBy().equalsIgnoreCase(muter.getName())) {
+		StrPlayer spl = new StrPlayer(p,plugin);
+		if(spl.getMutedBy().equals(muter.getName())) {
 			return true;
 		}
 		if(spl.getMuteTime()<System.currentTimeMillis()) {
