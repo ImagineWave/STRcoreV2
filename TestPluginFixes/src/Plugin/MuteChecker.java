@@ -1,11 +1,5 @@
 package Plugin;
 
-import java.io.File;
-import java.util.List;
-
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,47 +16,31 @@ public class MuteChecker implements Listener{
 	}
 
 @EventHandler
-public void MuteCheckers(AsyncPlayerChatEvent e) {
-	Player p = e.getPlayer();
-	File muted = new File(plugin.getDataFolder() + File.separator + "muted.yml");
-	 FileConfiguration m = YamlConfiguration.loadConfiguration(muted);
-	 List<String> list = m.getStringList("users");
-	if(!list.contains(p.getName())) return;
-	{
-		int index = list.indexOf(p.getName());
-		int time = index + 1;
-		int res = index + 2;
-		Long duration = Long.parseLong(list.get(time));
-		Long qtime = System.currentTimeMillis();
-		if(duration>qtime) {
-			e.setCancelled(true);
-			MessageManager.getManager().msg(p, MessageType.BAD, "У вас блокировка чата еще §6"+ (duration - qtime)/1000 + " §cсекунд по причине §6" + list.get(res));
-			return;
-		}
-	}
-	
-	
-}
-@EventHandler
 public void MuteCheckers2(AsyncPlayerChatEvent e) {
-	
 	Player p = e.getPlayer();
 	StrPlayer spl = new StrPlayer(p,plugin);
-	//StrPlayer spl = s.getPlayerCfg(p.getName());
 	Long duration = spl.getMuteTime();
 	Long qtime = System.currentTimeMillis();
 	String reason = spl.getMuteReason();
-	String name = spl.getNickname();
-	Bukkit.broadcastMessage("Попiвся "+duration+" "+reason+" "+name);
+	String msgduration = formatDuration((duration-qtime)/1000);
 	if(duration>qtime) {
 			e.setCancelled(true);
-			MessageManager.getManager().msg(p, MessageType.BAD, "У вас блокировка чата еще §6"+ (duration - qtime)/1000 + " §cсекунд по причине §6" + reason);
+			MessageManager.getManager().msg(p, MessageType.BAD, "У вас блокировка чата еще §6"+ msgduration + " §cсекунд по причине §6" + reason);
 			return;
 		}
-	
-	
-	
 }
-
+public String formatDuration(Long time) {
+	long hours = time/3600;
+	long minutes = time%3600/60;
+	long seconds = time%3600%60;
+	String sthours = Long.toString(hours);
+	String stminutes = Long.toString(minutes);
+	String stseconds = Long.toString(seconds);
+	String msgduration = "";
+	if(hours != 0) msgduration += sthours + " час(ов) ";
+	if(minutes != 0) msgduration += stminutes + " минут(а) ";
+	if(seconds != 0) msgduration += stseconds + " секунд(а) ";
+	return msgduration;
+}
 
 }

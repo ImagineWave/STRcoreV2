@@ -1,15 +1,9 @@
 package Plugin;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import Plugin.MessageManager.MessageType;
@@ -37,8 +31,12 @@ public class MuteSetter implements CommandExecutor{
 				return true;
 		 }
 		 if(args.length == 1) {
-				MessageManager.getManager().msg(p, MessageType.INFO, "Использование: /tempmute <player> <time (секунд)> <Причина>");
-				return true;
+			 Player t = (Bukkit.getPlayerExact(args[0]));
+			 if(!canRewriteMute(t, p)) {
+				 MessageManager.getManager().msg(p, MessageType.BAD, "Вы не можете снять мут, выданный другим игроком");
+				 return true;
+			 }
+			 unmutePlayer(t,p);
 		 }
 		 if(args.length >= 2) {
 			 Player t = (Bukkit.getPlayerExact(args[0]));
@@ -52,62 +50,69 @@ public class MuteSetter implements CommandExecutor{
 				 MessageManager.getManager().msg(p, MessageType.BAD, "Вы не можете мутить более чем на час");
 				 return true;
 			 }
+			 if(!canRewriteMute(t, p)) {
+				 MessageManager.getManager().msg(p, MessageType.BAD, "Вы не можете снять мут, выданный другим игроком");
+				 return true;
+			 }
 			 Long qtime = System.currentTimeMillis() + time*1000;
 			 String reason = message;
-			 long hours = time/3600;
-			 long minutes = time%3600/60;
-			 long seconds = time%3600%60;
-			 String sthours = Long.toString(hours);
-			 String stminutes = Long.toString(minutes);
-			 String stseconds = Long.toString(seconds);
-			 String msgduration = "";
-			 if(hours != 0) msgduration += sthours + " час(ов) ";
-			 if(minutes != 0) msgduration += stminutes + " минут(а) ";
-			 if(seconds != 0) msgduration += stseconds + " секунд(а) ";
-			 Bukkit.broadcastMessage("§7[§cНаказание§7]: §6"+ p.getName()+" §bзамутил игрока §6"+t.getName()+"§b на §6" + msgduration+ "§b по причине §6" + message);
-			 MessageManager.getManager().msg(t, MessageType.BAD, "Вас замутил §6"+p.getName()+"§c на §6" + msgduration+ "§c по причине §6" + message);
-			playertomute(t,qtime,reason);
+			 StrPlayerToMute(t,qtime,reason,p);
 			 }
 			 catch (NumberFormatException e) {
 				 MessageManager.getManager().msg(p, MessageType.BAD, "Укажите время в секундах");
 				 return true;
 			 }
-			// Bukkit.broadcastMessage("§7[§cНаказание§7]: §6"+ p.getName()+" §bзамутил игрока §6"+t.getName()+"§b на §6" + args[1]+ "§b секунд по причине §6" + message);
-			 //MessageManager.getManager().msg(t, MessageType.BAD, "Вас замутил §6"+p.getName()+"§c на §6" + args[1]+ "§c секунд по причине §6" + message);
 		 }
 		return false;
 	}
-	public void playertomute (Player p, long time, String reason) {
-		 String duration = Long.toString(time);
-		 File muted = new File(plugin.getDataFolder() + File.separator + "muted.yml");
-		 FileConfiguration m = YamlConfiguration.loadConfiguration(muted);
-		 List<String> list = m.getStringList("users");
-		 if(list.contains(p.getName()))
-			{
-				int index = list.indexOf(p.getName());
-				int time1 = index + 1;
-				int res = index + 2;
-				list.remove(res);
-				list.remove(time1);
-				list.remove(index);
-			}
-		 list.add(p.getName());
-		 list.add(duration);
-		 list.add(reason);
-		m.set("users",list);
-				try {
-			m.save(muted);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-	 }
-	public void StrPlayerToMute(Player p, Long time, String reason, Player m) {
+	
+	public Boolean canRewriteMute (Player p, Player muter) {
 		StrPlayer spl = new StrPlayer(plugin);
 		spl.getPlayerCfg(p.getName());
+		if(spl.getMutedBy().equalsIgnoreCase(muter.getName())) {
+			return true;
+		}
+		if(spl.getMuteTime()<System.currentTimeMillis()) {
+			return true;
+		}
+		if(p.hasPermission("str.admin")) {
+			return true;
+		}
+		return false;
+	}
+	
+	public void StrPlayerToMute(Player p, Long time, String reason, Player m) {
+		StrPlayer spl = new StrPlayer(p,plugin);
 		spl.setMuted(true);
 		spl.setMuteReason(reason);
 		spl.setMuteTime(time);
 		spl.setMutedBy(m.getName());
-		spl.setPlayerCfg(spl);	
+		spl.setPlayerCfg(spl);
+		String msgduration = formatDuration(time);
+		Bukkit.broadcastMessage("§7[§cНаказание§7]: §6"+ m.getName()+" §bзамутил игрока §6"+p.getName()+"§b на §6" + msgduration+ "§b по причине §6" + reason);
+		MessageManager.getManager().msg(p, MessageType.BAD, "Вас замутил §6"+m.getName()+"§c на §6" + msgduration+ "§c по причине §6" + reason);
+	}
+	public void unmutePlayer(Player p, Player m) {
+		StrPlayer spl = new StrPlayer(p,plugin);
+		spl.setMuted(true);
+		spl.setMuteReason("unmuted");
+		spl.setMuteTime(0);
+		spl.setMutedBy(m.getName());
+		spl.setPlayerCfg(spl);
+		Bukkit.broadcastMessage("§7[§cНаказание§7]: §6"+ m.getName()+" §aснял мут с игрока §6"+p.getName());
+	}
+	
+	public String formatDuration(Long time) {
+		long hours = time/3600;
+		long minutes = time%3600/60;
+		long seconds = time%3600%60;
+		String sthours = Long.toString(hours);
+		String stminutes = Long.toString(minutes);
+		String stseconds = Long.toString(seconds);
+		String msgduration = "";
+		if(hours != 0) msgduration += sthours + " час(ов) ";
+		if(minutes != 0) msgduration += stminutes + " минут(а) ";
+		if(seconds != 0) msgduration += stseconds + " секунд(а) ";
+		return msgduration;
 	}
 }

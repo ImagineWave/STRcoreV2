@@ -47,17 +47,19 @@ public class StrPlayer {
 		this.nickname = p.getName();
 		this.ip = spl.getIp();
 		this.banned = spl.getBanned();
-		this.banTime = banTime;
-		this.banReason = banReason;
-		this.muted = muted;
+		this.banTime = spl.getBanTime();
+		this.banReason = spl.getBanReason();
+		this.bannedBy = spl.getBannedBy();
+		this.muted = spl.getMuted();
 		this.muteTime = spl.getMuteTime();
 		this.muteReason = spl.getMuteReason();
-		this.flying = flying;
-		this.flyReason = flyReason;
-		this.invurable = invurable;
-		this.vanished = vanished;
-		this.saturated = saturated;
-		this.playTime = playTime;
+		this.mutedBy = spl.getMutedBy();
+		this.flying = spl.getFlying();
+		this.flyReason = spl.getFlyReason();
+		this.invurable = spl.getInvurable();
+		this.vanished = spl.getVanished();
+		this.saturated = spl.getSaturated();
+		this.playTime = spl.getPlayTime();
 	}
 
 
