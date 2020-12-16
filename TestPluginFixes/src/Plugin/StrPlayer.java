@@ -19,16 +19,18 @@ public class StrPlayer {
 		this.plugin = plugin;
 	}
 	
-	public StrPlayer(String ip, boolean banned, long banTime, String banReason, boolean muted, long muteTime,
-			String muteReason, boolean flying, String flyReason, boolean invurable, boolean vanished, boolean saturated,
+	public StrPlayer(String ip, boolean banned, long banTime, String banReason, String bannedBy, boolean muted, long muteTime,
+			String muteReason, String mutedBy, boolean flying, String flyReason, boolean invurable, boolean vanished, boolean saturated,
 			long playTime) {
 		this.ip = ip;
 		this.banned = banned;
 		this.banTime = banTime;
 		this.banReason = banReason;
+		this.bannedBy = bannedBy;
 		this.muted = muted;
 		this.muteTime = muteTime;
 		this.muteReason = muteReason;
+		this.mutedBy = mutedBy;
 		this.flying = flying;
 		this.flyReason = flyReason;
 		this.invurable = invurable;
@@ -144,7 +146,23 @@ public class StrPlayer {
 	public void setPlayTime(long playTime) {
 		this.playTime = playTime;
 	}
-	
+	public String getBannedBy() {
+		return bannedBy;
+	}
+
+	public void setBannedBy(String bannedBy) {
+		this.bannedBy = bannedBy;
+	}
+
+	public String getMutedBy() {
+		return mutedBy;
+	}
+
+	public void setMutedBy(String mutedBy) {
+		this.mutedBy = mutedBy;
+	}
+
+
 	
 	// --------------------------------------------------------
 	
@@ -154,9 +172,11 @@ public class StrPlayer {
 	private Boolean banned = false;
 	private long banTime = 0;
 	private String banReason = "§4Ваш аккаунт был заблокирован";
+	private String bannedBy = "Opperator";
 	private Boolean muted = false;
 	private long muteTime = 0;
 	private String muteReason = "Вы были заглушены";
+	private String mutedBy = "Opperator";
 	private Boolean flying = false;
 	private String flyReason = "";
 	private Boolean invurable = false;
@@ -174,9 +194,11 @@ public class StrPlayer {
 		f.set(nickname+".banned",banned);
 		f.set(nickname+".banTime",banTime);
 		f.set(nickname+".banReason",banReason);
+		f.set(nickname+".bannedBy",bannedBy);
 		f.set(nickname+".muted",muted);
 		f.set(nickname+".muteTime",muteTime);
 		f.set(nickname+".muteReason",muteReason);
+		f.set(nickname+".mutedBy",mutedBy);
 		f.set(nickname+".flying",flying);
 		f.set(nickname+".flyReason",flyReason);
 		f.set(nickname+".invurable",invurable);
@@ -201,9 +223,11 @@ public class StrPlayer {
 				f.getBoolean(name+".banned"),
 				f.getLong(name+".banTime"),
 				f.getString(name+".banReason"),
+				f.getString(name+".bannedBy"),
 				f.getBoolean(name+".muted"),
 				f.getLong(name+".muteTime"),
 				f.getString(name+".muteReason"),
+				f.getString(name+".mutedBy"),
 				f.getBoolean(name+".flying"),
 				f.getString(name+".flyReason"),
 				f.getBoolean(name+".invurable"),
