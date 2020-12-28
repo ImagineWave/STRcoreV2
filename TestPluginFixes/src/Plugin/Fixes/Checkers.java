@@ -65,20 +65,32 @@ public class Checkers implements Listener {
 
     public boolean checkItem(ItemStack stack, Player p) {
 	boolean cheat = false;
-    	if(checkEnchants(stack, p)) {
+		Bukkit.broadcastMessage("Проверка запустилась"); //УБРАТЬ ПОЗЖЕ
+    	if(isEnchantsOp(stack, p)) {
     		cheat = true;
     	}
-	
-	
-	
-    	if(cheat) {
-    		return true;
-    	}
-    	return false;
+	return cheat;
     }
 
 
-private boolean checkEnchants(ItemStack stack, Player p) {
+    
+    private boolean isEnchantsOp (ItemStack item, Player p) {
+    	Bukkit.broadcastMessage("Проверка зачарований"); //УБРАТЬ ПОЗЖЕ
+    	boolean overpower = false;
+    	if (p.hasPermission("str.bypass.enchant") || (p.hasPermission("str.bypass.*"))) return false;
+    	if (p.isOp()) return false;
+    	if ( ( item.hasItemMeta() ) && (item.getItemMeta().hasEnchants() ) ){
+    		Map<Enchantment, Integer> enchantments = null;
+    		enchantments.putAll(item.getItemMeta().getEnchants());
+    		String bc = enchantments.toString();
+    		Bukkit.broadcastMessage(bc); //УБРАТЬ ПОЗЖЕ
+    		Bukkit.broadcastMessage("Проверка зачарований завершена"); //УБРАТЬ ПОЗЖЕ
+    	}
+    
+    
+    return overpower;
+    }
+private boolean checkEnchants1(ItemStack stack, Player p) {
     boolean cheat = false;
     if (!p.hasPermission("str.bypass.enchant") && stack.hasItemMeta() && stack.getItemMeta().hasEnchants()) {
         final ItemMeta meta = stack.getItemMeta();
