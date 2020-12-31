@@ -3,6 +3,7 @@ package Plugin.Fixes;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -17,6 +18,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import Plugin.Main;
+import net.minecraft.server.v1_16_R3.NBTTagCompound;
 
 public class Checkers implements Listener {
 	private Main plugin;
@@ -64,8 +66,8 @@ public class Checkers implements Listener {
 
 
     public boolean checkItem(ItemStack stack, Player p) {
-	boolean cheat = false;
-		Bukkit.broadcastMessage("Ïğîâåğêà çàïóñòèëàñü"); //ÓÁĞÀÒÜ ÏÎÇÆÅ
+    boolean cheat = false;
+    if(stack == null) return cheat;
     	if(isEnchantsOp(stack, p)) {
     		cheat = true;
     	}
@@ -75,21 +77,41 @@ public class Checkers implements Listener {
 
     
     private boolean isEnchantsOp (ItemStack item, Player p) {
-    	Bukkit.broadcastMessage("Ïğîâåğêà çà÷àğîâàíèé"); //ÓÁĞÀÒÜ ÏÎÇÆÅ
     	boolean overpower = false;
     	if (p.hasPermission("str.bypass.enchant") || (p.hasPermission("str.bypass.*"))) return false;
     	if (p.isOp()) return false;
-    	if ( ( item.hasItemMeta() ) && (item.getItemMeta().hasEnchants() ) ){
-    		Map<Enchantment, Integer> enchantments = null;
-    		enchantments.putAll(item.getItemMeta().getEnchants());
-    		String bc = enchantments.toString();
-    		Bukkit.broadcastMessage(bc); //ÓÁĞÀÒÜ ÏÎÇÆÅ
-    		Bukkit.broadcastMessage("Ïğîâåğêà çà÷àğîâàíèé çàâåğøåíà"); //ÓÁĞÀÒÜ ÏÎÇÆÅ
+    	if (item.getType() == Material.AIR) return false;
+    	if ( ( !item.hasItemMeta() ) )return false;
+    		if(item.getItemMeta().hasEnchants()){
+    		ItemMeta meta = item.getItemMeta();
+    		Map<Enchantment, Integer> enchantments = (item.getItemMeta().getEnchants());
+    		for (Map.Entry<Enchantment, Integer> entry: enchantments.entrySet()) {
+    			Enchantment currentEnchant =entry.getKey();
+    			Integer value = entry.getValue();
+    			if(value> currentEnchant.getMaxLevel()) {
+    				meta.removeEnchant(currentEnchant);
+        			meta.addEnchant(currentEnchant, currentEnchant.getMaxLevel(), true);
+        			item.setItemMeta(meta);
+    			}
+    		}
     	}
     
     
     return overpower;
     }
+    
+   /* private boolean checkLGBT(net.minecraft.server.v1_16_R3.ItemStack item2, Player p) {
+    	net.minecraft.server.v1_16_R3.ItemStack item = p.getInventory().getItemInMainHand();
+    	boolean cheat = false;
+    	if (p.hasPermission("str.bypass.nbt") || (p.hasPermission("str.bypass.*"))) return false;
+    	if (p.isOp()) return false;
+    	if(!item.hasTag()) return cheat;
+    	NBTTagCompound tag =item.getTag();
+    	Bukkit.broadcastMessage("tag= "+tag.toString()); //ÓÁĞÀÒÜ ÏÎÇÆÅ
+    	
+    	return cheat;
+    } */
+    
 private boolean checkEnchants1(ItemStack stack, Player p) {
     boolean cheat = false;
     if (!p.hasPermission("str.bypass.enchant") && stack.hasItemMeta() && stack.getItemMeta().hasEnchants()) {

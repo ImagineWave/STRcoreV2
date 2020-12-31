@@ -31,7 +31,7 @@ public class Main extends JavaPlugin {
 		getCommand("endercheck").setExecutor(new Plugin.Inventory.EndInvCheck(this));
 		getCommand("invcheck").setExecutor(new Plugin.Inventory.InvCheck(this));
 		getCommand("invcheck").setExecutor(new Plugin.Inventory.InvCheck(this));
-		//Bukkit.getServer().getPluginManager().registerEvents(new Plugin.Fixes.Checkers(this), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new Plugin.Fixes.Checkers(this), this);
 		File homes = new File(getDataFolder() + File.separator + "homes.yml");
 		
 		if (!homes.exists()) {
