@@ -32,7 +32,10 @@ public class TpSpawn implements CommandExecutor {
 		return true;	
 		}
 		if (!sender.hasPermission("str.spawn")) {
-			  MessageManager.getManager().msg(sender, MessageType.GOOD, "Координаты спауна x=50, z=470");
+			Location spawninfo = SpawnToLoc();
+			Integer infoX = spawninfo.getBlockX();
+			Integer infoZ = spawninfo.getBlockX();
+			MessageManager.getManager().msg(sender, MessageType.GOOD, "Координаты спауна x="+infoX +", z="+infoZ);
 	            return true;
 	        }
 		Player p = (Player) sender;
