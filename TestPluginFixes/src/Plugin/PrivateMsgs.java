@@ -5,12 +5,22 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-public class PrivateMsgs implements CommandExecutor{
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-public PrivateMsgs(Main plugin) {}
+import Plugin.MessageManager.MessageType;
+public class PrivateMsgs implements CommandExecutor{
+	
+	private Main plugin;
+
+public PrivateMsgs(Main plugin) {
+	this.plugin = plugin;
+}
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		Player p = (Player) sender;
+		if(isPlayerMuted(p)) {
+			return true;
+		}
 		if (args.length == 0) {
 			p.sendMessage("§6[§4ЛС§6] §cИспользование /pm <Игрок> <сообщение>");
 			return true;
@@ -42,6 +52,31 @@ public PrivateMsgs(Main plugin) {}
 			}
 			
 			return true;
+	}
+	public boolean isPlayerMuted(Player p) {
+		StrPlayer spl = new StrPlayer(p,plugin);
+		Long duration = spl.getMuteTime();
+		Long qtime = System.currentTimeMillis();
+		String reason = spl.getMuteReason();
+		String msgduration = formatDuration((duration-qtime)/1000);
+		if(duration>qtime) {
+				MessageManager.getManager().msg(p, MessageType.BAD, "У вас блокировка чата еще §6"+ msgduration + " §cсекунд по причине §6" + reason);
+				return true;
+			}
+		return false;
+	}
+	public String formatDuration(Long time) {
+		long hours = time/3600;
+		long minutes = time%3600/60;
+		long seconds = time%3600%60;
+		String sthours = Long.toString(hours);
+		String stminutes = Long.toString(minutes);
+		String stseconds = Long.toString(seconds);
+		String msgduration = "";
+		if(hours != 0) msgduration += sthours + " час(ов) ";
+		if(minutes != 0) msgduration += stminutes + " минут(а) ";
+		if(seconds != 0) msgduration += stseconds + " секунд(а) ";
+		return msgduration;
 	}
 
 }
