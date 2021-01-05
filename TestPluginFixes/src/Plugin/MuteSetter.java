@@ -75,7 +75,7 @@ public class MuteSetter implements CommandExecutor{
 		if(spl.getMuteTime()<System.currentTimeMillis()) {
 			return true;
 		}
-		if(p.hasPermission("str.admin")) {
+		if(muter.hasPermission("str.admin")) {
 			return true;
 		}
 		return false;
