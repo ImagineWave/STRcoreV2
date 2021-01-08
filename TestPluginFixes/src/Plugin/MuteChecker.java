@@ -29,6 +29,24 @@ public void MuteCheckers2(AsyncPlayerChatEvent e) {
 			return;
 		}
 }
+
+
+
+@EventHandler
+public void guestToMute(AsyncPlayerChatEvent e) {
+	Player p = e.getPlayer();
+	if(!p.hasPermission("str.guest")) return;
+	if(p.isOp()) return;
+	StrPlayer spl = new StrPlayer(p,plugin);
+	spl.setMuted(true);
+	spl.setMuteReason("Задержка чата");
+	spl.setMuteTime(System.currentTimeMillis()+5000);
+	spl.setMutedBy("console");
+	spl.setPlayerCfg(spl);
+}
+
+
+
 public String formatDuration(Long time) {
 	long hours = time/3600;
 	long minutes = time%3600/60;
