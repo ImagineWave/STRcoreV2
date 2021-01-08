@@ -8,9 +8,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -61,6 +63,30 @@ public Handler(Main plugin) {
 	}
 	
 	}
+
+@EventHandler
+public void mobProtect(CreatureSpawnEvent e) {
+	Location loc = e.getEntity().getLocation();
+	Location spawn = SpawnToLoc();
+	int blockX = loc.getBlockX();
+	int blockY = loc.getBlockY();
+	int blockZ = loc.getBlockZ();
+	int modX = Math.abs(blockX);
+	int modY = Math.abs(blockY);
+	int modZ = Math.abs(blockZ);
+	int spawnModX =  Math.abs(spawn.getBlockX());
+	int spawnModY =  Math.abs(spawn.getBlockY());
+	int spawnModZ =  Math.abs(spawn.getBlockZ());
+	if((modX-spawnModX<200)&&(modY-spawnModY<200)&&(modZ-spawnModZ<200)) {
+		if(e.getEntityType()!= EntityType.PLAYER) {
+			e.getEntity().setHealth(0);
+		}
+	}
+	return;
+}
+
+
+
 public Location configToLoc (String name) {		
 	 File homes = new File(plugin.getDataFolder() + File.separator + "homes.yml");
 	 FileConfiguration h = YamlConfiguration.loadConfiguration(homes);
