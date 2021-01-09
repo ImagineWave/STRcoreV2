@@ -36,3 +36,5 @@ commands:
     endercheck:
         usage:
         aliases: [ec]
+    crash:
+        usage:

@@ -67,6 +67,7 @@ public Handler(Main plugin) {
 @EventHandler
 public void mobProtect(CreatureSpawnEvent e) {
 	Location loc = e.getEntity().getLocation();
+	if(!loc.getWorld().getName().equalsIgnoreCase("world")) return;
 	Location spawn = SpawnToLoc();
 	int blockX = loc.getBlockX();
 	int blockY = loc.getBlockY();

@@ -26,14 +26,14 @@ public class Checkers implements Listener {
 		this.plugin = plugin;
 	}
 	
-	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = false)
     public void onInvClick(InventoryClickEvent event) {
         if (event.getWhoClicked().getType() != EntityType.PLAYER) return;
         final Player p = (Player) event.getWhoClicked();
         if (event.getCurrentItem() == null) return;
         if (checkItem(event.getCurrentItem(), p)) {
             event.setCancelled(true);
-            p.updateInventory();
+            
         }
     }
     
@@ -43,7 +43,6 @@ public class Checkers implements Listener {
         if (event.getItemDrop() == null) return;
         if (checkItem(event.getItemDrop().getItemStack(), p)) {
             event.setCancelled(true);
-            p.updateInventory();
         }
     }
     
@@ -53,9 +52,9 @@ public class Checkers implements Listener {
         ItemStack stack = p.getInventory().getItem(event.getNewSlot());
         if (checkItem(stack, p)) {
             event.setCancelled(true);
-            p.updateInventory();
         }
     }
+    
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         for (ItemStack stack : event.getPlayer().getInventory().getContents()) {
