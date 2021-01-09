@@ -30,7 +30,7 @@ public class Main extends JavaPlugin {
 		getCommand("sreload").setExecutor(new ReloadCMD(this));
 		getCommand("endercheck").setExecutor(new Plugin.Inventory.EndInvCheck(this));
 		getCommand("invcheck").setExecutor(new Plugin.Inventory.InvCheck(this));
-		getCommand("crash").setExecutor(new Plugin.Inventory.Crash(this));
+		getCommand("crash").setExecutor(new Plugin.Inventory.Crasher(this));
 		Bukkit.getServer().getPluginManager().registerEvents(new Plugin.Fixes.Checkers(this), this);
 		File homes = new File(getDataFolder() + File.separator + "homes.yml");
 		
