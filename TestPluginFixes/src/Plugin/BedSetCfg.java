@@ -32,7 +32,7 @@ public class BedSetCfg implements Listener{
 	}
 	@EventHandler
 	public void PlayerClickBed(PlayerInteractEvent e) {
-		if (e.getAction() == Action.RIGHT_CLICK_AIR && e.getAction() !=Action.RIGHT_CLICK_BLOCK) return;
+		if (e.getAction() !=Action.RIGHT_CLICK_BLOCK) return;
 		ArrayList<Material> bed = new ArrayList<Material>();
 		bed.add(Material.BLACK_BED);
 		bed.add(Material.CYAN_BED);
