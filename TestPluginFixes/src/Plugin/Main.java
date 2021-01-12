@@ -18,6 +18,8 @@ public class Main extends JavaPlugin {
 		Bukkit.getServer().getPluginManager().registerEvents(new Handler(this), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new MuteChecker(this), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Vanish(this), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new bedSetCfg(this), this);
+		getCommand("bedtp").setExecutor(new bedTp(this));
 		getCommand("gm").setExecutor(new gm(this));
 		getCommand("sethome").setExecutor(new Home(this));
 		getCommand("savespawn").setExecutor(new SetSpawn(this));
