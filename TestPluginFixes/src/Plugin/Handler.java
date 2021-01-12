@@ -32,6 +32,12 @@ public Handler(Main plugin) {
 	Player p = e.getPlayer();
 	String name = p.getName();
 	MessageManager.getManager().msg(p, MessageType.INFO, "Äîáğî ïîæàëîâàòü íà ñåğâåğ, "+ name);
+	MessageManager.getManager().msg(p, MessageType.GOOD, "§4 ÂÍÈÌÀÍÈÅ! ÁÛËÀ ÓÄÀËÅÍÀ ÊÎÌÀÍÄÀ /HOME");
+	MessageManager.getManager().msg(p, MessageType.GOOD, "§4 ÂÍÈÌÀÍÈÅ! ÁÛËÀ ÓÄÀËÅÍÀ ÊÎÌÀÍÄÀ /HOME");
+	MessageManager.getManager().msg(p, MessageType.GOOD, "§4 ÂÍÈÌÀÍÈÅ! ÁÛËÀ ÓÄÀËÅÍÀ ÊÎÌÀÍÄÀ /HOME");
+	MessageManager.getManager().msg(p, MessageType.GOOD, "§4 ÂÍÈÌÀÍÈÅ! ÁÛËÀ ÓÄÀËÅÍÀ ÊÎÌÀÍÄÀ /HOME");
+	MessageManager.getManager().msg(p, MessageType.GOOD, "§4 ÂÍÈÌÀÍÈÅ! ÁÛËÀ ÓÄÀËÅÍÀ ÊÎÌÀÍÄÀ /HOME");
+	MessageManager.getManager().msg(p, MessageType.GOOD, "§4 ÂÍÈÌÀÍÈÅ! ÁÛËÀ ÓÄÀËÅÍÀ ÊÎÌÀÍÄÀ /HOME");
 	File players = new File(plugin.getDataFolder() + File.separator + "players.yml");
 	FileConfiguration users = YamlConfiguration.loadConfiguration(players);
 	List<String> list = users.getStringList("users");//govno ebanoe

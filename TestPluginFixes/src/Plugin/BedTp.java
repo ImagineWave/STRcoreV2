@@ -28,7 +28,6 @@ public class BedTp implements CommandExecutor{
 	        }
 		 Player p = (Player) sender;
 		 if(!p.hasPermission("str.bedtp")) return true;
-		 String name = args[0];
 		try{
 			 	Location bed = configToLoc(args[0]);
 				p.teleport(bed);

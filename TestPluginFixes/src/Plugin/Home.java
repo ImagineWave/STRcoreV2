@@ -33,6 +33,10 @@ public class Home implements CommandExecutor {
 			return true;	
 			}
 			Player p = (Player) sender;
+			if (!p.hasPermission("str.home")){
+				MessageManager.getManager().msg(p, MessageType.BAD, "У вас нет прав");
+				return true;
+			}
 			if(p.getLocation().getWorld().getName().equalsIgnoreCase("world_the_end")){
 			        MessageManager.getManager().msg(p, MessageType.BAD, "sethome в мире the_end запрещен");
 			        p.kickPlayer("§csethome в мире the_end запрещен");

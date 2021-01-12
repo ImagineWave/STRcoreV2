@@ -34,6 +34,10 @@ public class TpHome implements CommandExecutor {
 		}
 		if (args.length == 0) {
 		Player p = (Player) sender;
+		if (!p.hasPermission("str.home")){
+			MessageManager.getManager().msg(p, MessageType.BAD, "У вас нет прав");
+			return true;
+		}
 		Location home = configToLoc(p.getName());
 		//configToLoc(p.getName());
 		p.teleport(home);
