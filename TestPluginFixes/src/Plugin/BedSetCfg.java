@@ -11,13 +11,13 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerBedEnterEvent;
 
-public class bedSetCfg implements Listener{
+public class BedSetCfg implements Listener{
 	private Main plugin;
-	public bedSetCfg() {
+	public BedSetCfg() {
 		this.plugin = plugin;
 	}
 
-	public bedSetCfg(Main main) {}
+	public BedSetCfg(Main main) {}
 
 	@EventHandler
 	public void PlayerToBed(PlayerBedEnterEvent e) {

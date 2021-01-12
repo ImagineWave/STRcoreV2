@@ -9,9 +9,9 @@ import org.bukkit.entity.Player;
 
 import Plugin.MessageManager.MessageType;
 
-public class gm implements CommandExecutor {
+public class Gm implements CommandExecutor {
 
-	public gm(Main plugin) {}
+	public Gm(Main plugin) {}
 	
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

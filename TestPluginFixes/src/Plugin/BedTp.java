@@ -13,13 +13,13 @@ import org.bukkit.entity.Player;
 
 import Plugin.MessageManager.MessageType;
 
-public class bedTp implements CommandExecutor{
+public class BedTp implements CommandExecutor{
 	private Main plugin;
-	public bedTp() {
+	public BedTp() {
 		this.plugin = plugin;
 	}
 
-	public bedTp(Main main) {}
+	public BedTp(Main main) {}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
