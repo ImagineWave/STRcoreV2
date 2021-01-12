@@ -15,11 +15,10 @@ import Plugin.MessageManager.MessageType;
 
 public class BedTp implements CommandExecutor{
 	private Main plugin;
-	public BedTp() {
+
+	public BedTp(Main plugin) {
 		this.plugin = plugin;
 	}
-
-	public BedTp(Main main) {}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
