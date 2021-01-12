@@ -4,13 +4,15 @@ import java.io.File;
 import java.io.IOException;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerBedEnterEvent;
-
+import org.bukkit.event.player.PlayerInteractEvent;
+import java.util.ArrayList;
 public class BedSetCfg implements Listener{
 	private Main plugin;
 	public BedSetCfg() {
@@ -18,13 +20,39 @@ public class BedSetCfg implements Listener{
 	}
 
 	public BedSetCfg(Main main) {}
-
+	
 	@EventHandler
 	public void PlayerToBed(PlayerBedEnterEvent e) {
 		Player p = e.getPlayer();
 		Location loc = e.getBed().getLocation();
 		if (!loc.getWorld().getName().equalsIgnoreCase("world")) return;
  		locToConfig(p.getName(), loc);
+		return;
+	}
+	@EventHandler
+	public void PlayerClickBed(PlayerInteractEvent e) {
+		ArrayList<Material> bed = new ArrayList<Material>();
+		bed.add(Material.BLACK_BED);
+		bed.add(Material.CYAN_BED);
+		bed.add(Material.BLUE_BED);
+		bed.add(Material.BROWN_BED);
+		bed.add(Material.GRAY_BED);
+		bed.add(Material.GREEN_BED);
+		bed.add(Material.LIGHT_BLUE_BED);
+		bed.add(Material.LIGHT_GRAY_BED);
+		bed.add(Material.LIME_BED);
+		bed.add(Material.LIME_BED);
+		bed.add(Material.ORANGE_BED);
+		bed.add(Material.PINK_BED);
+		bed.add(Material.PURPLE_BED);
+		bed.add(Material.RED_BED);
+		bed.add(Material.WHITE_BED);
+		bed.add(Material.YELLOW_BED);
+		if(!bed.contains(e.getClickedBlock().getType())) return;
+		if(e.getClickedBlock().getLocation().getWorld().getName()!="world") return;
+		Player p = e.getPlayer();
+		Location loc = e.getClickedBlock().getLocation();
+		locToConfig(p.getName(), loc);
 		return;
 	}
 

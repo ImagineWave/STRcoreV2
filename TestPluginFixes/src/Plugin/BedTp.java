@@ -35,7 +35,7 @@ public class BedTp implements CommandExecutor{
 				p.teleport(bed);
 				MessageManager.getManager().msg(sender, MessageType.INFO, "Вы телепортировались к кровати игрока §6" + args[0]);
 				}
-				catch (IllegalArgumentException e) {
+				catch (NullPointerException e) {
 					MessageManager.getManager().msg(sender, MessageType.BAD, "Игрок незарегистрирован и/или не имеет кровати");
 					return true;
 			}
