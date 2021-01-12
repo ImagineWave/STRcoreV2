@@ -38,3 +38,5 @@ commands:
         aliases: [ec]
     crash:
         usage:
+    bedtp:
+        usage:
