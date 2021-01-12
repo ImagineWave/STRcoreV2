@@ -16,11 +16,11 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import java.util.ArrayList;
 public class BedSetCfg implements Listener{
 	private Main plugin;
-	public BedSetCfg() {
+	public BedSetCfg() {}
+
+	public BedSetCfg(Main main) {
 		this.plugin = plugin;
 	}
-
-	public BedSetCfg(Main main) {}
 	
 	@EventHandler
 	public void PlayerToBed(PlayerBedEnterEvent e) {
