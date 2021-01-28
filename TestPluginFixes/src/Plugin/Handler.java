@@ -95,11 +95,11 @@ public void mobProtect(CreatureSpawnEvent e) {
 	return;
 }
 @EventHandler
-public void playerSpawnsWitherInEnd(BlockPlaceEvent e) {
+public void playerSpawnsWitherInEnd(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
 		if(p.isOp()) return;
-	if(!e.getBlock().getLocation().getWorld().getName().equalsIgnoreCase("world_the_end"))return;
-	if(e.getBlock().getType().equals(Material.WITHER_SKELETON_SKULL)) {
+	if(!p.getLocation().getWorld().getName().equalsIgnoreCase("world_the_end"))return;
+	if((p.getInventory().getItemInMainHand().getType().equals(Material.WITHER_SKELETON_SKULL)) || (p.getInventory().getItemInOffHand().getType().equals(Material.WITHER_SKELETON_SKULL))) {
 		e.setCancelled(true);
 		p.sendMessage("§4Вызывать визера в мире world_the_end запрещено");
 		return;
