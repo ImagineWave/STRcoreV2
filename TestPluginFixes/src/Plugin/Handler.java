@@ -6,13 +6,17 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -32,12 +36,8 @@ public Handler(Main plugin) {
 	Player p = e.getPlayer();
 	String name = p.getName();
 	MessageManager.getManager().msg(p, MessageType.INFO, "Добро пожаловать на сервер, "+ name);
-	MessageManager.getManager().msg(p, MessageType.GOOD, "§4 ВНИМАНИЕ! БЫЛА УДАЛЕНА КОМАНДА /HOME");
-	MessageManager.getManager().msg(p, MessageType.GOOD, "§4 ВНИМАНИЕ! БЫЛА УДАЛЕНА КОМАНДА /HOME");
-	MessageManager.getManager().msg(p, MessageType.GOOD, "§4 ВНИМАНИЕ! БЫЛА УДАЛЕНА КОМАНДА /HOME");
-	MessageManager.getManager().msg(p, MessageType.GOOD, "§4 ВНИМАНИЕ! БЫЛА УДАЛЕНА КОМАНДА /HOME");
-	MessageManager.getManager().msg(p, MessageType.GOOD, "§4 ВНИМАНИЕ! БЫЛА УДАЛЕНА КОМАНДА /HOME");
-	MessageManager.getManager().msg(p, MessageType.GOOD, "§4 ВНИМАНИЕ! БЫЛА УДАЛЕНА КОМАНДА /HOME");
+	if(DrReyziBoy()) MessageManager.getManager().msg(p, MessageType.GOOD, "У нашего куратора §dReyziBoy §aсегодня День Рождения, поздравим его все вместе!!!");
+	if(DrDoctor_Dew()) MessageManager.getManager().msg(p, MessageType.GOOD, "У нашего Гл.Админа §bDoctor_Dew §aсегодня День Рождения, поздравим его все вместе!!!");
 	File players = new File(plugin.getDataFolder() + File.separator + "players.yml");
 	FileConfiguration users = YamlConfiguration.loadConfiguration(players);
 	List<String> list = users.getStringList("users");//govno ebanoe
@@ -94,7 +94,18 @@ public void mobProtect(CreatureSpawnEvent e) {
 	}
 	return;
 }
-
+@EventHandler
+public void playerSpawnsWitherInEnd(BlockPlaceEvent e) {
+		Player p = e.getPlayer();
+		if(p.isOp()) return;
+	if(!e.getBlock().getLocation().getWorld().getName().equalsIgnoreCase("world_the_end"))return;
+	if(e.getBlock().getType().equals(Material.WITHER_SKELETON_SKULL)) {
+		e.setCancelled(true);
+		p.sendMessage("§4Вызывать визера в мире world_the_end запрещено");
+		return;
+	}
+	return;
+}
 
 
 public Location configToLoc (String name) {		
@@ -114,6 +125,19 @@ public Location SpawnToLoc () {
 			h.getDouble("locations.y"),
 			h.getDouble("locations.z"));
 	return spawn;
+}
+
+public boolean DrReyziBoy() {
+	if ((System.currentTimeMillis() > 1618531200) && (System.currentTimeMillis() < 1618617599)) {	
+	return true;
+	}
+	return false;
+}
+public boolean DrDoctor_Dew() {
+	if ((System.currentTimeMillis() > 1619222400) && (System.currentTimeMillis() < 1619308799)) {	
+	return true;
+	}
+	return false;
 }
 }
 	
