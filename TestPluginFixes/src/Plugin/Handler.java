@@ -32,7 +32,7 @@ public Handler(Main plugin) {
 }
 
 @EventHandler
-	public void spawnplayer(PlayerJoinEvent e) {
+	public void spawnPlayer(PlayerJoinEvent e) {
 	Player p = e.getPlayer();
 	String name = p.getName();
 	MessageManager.getManager().msg(p, MessageType.INFO, "Добро пожаловать на сервер, "+ name);
