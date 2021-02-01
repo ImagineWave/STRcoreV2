@@ -1,5 +1,7 @@
 package Plugin.Fixes;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +10,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,33 +30,83 @@ public class AntiXrayListener implements Listener{
 	public void onBlockBreak(BlockBreakEvent e) {
 		Player p = e.getPlayer();
 		Block b = e.getBlock();
-		if(b.getY()>20) {
+		if(b.getY()>16) {
 			ores.remove(p);
 			return;
-		}
-		if(ores.get(p)!=null) {
-			Bukkit.broadcastMessage(ores.toString());//ssssssssssssss
-		if(ores.get(p).contains(b)) {
-			Bukkit.broadcastMessage("Óæå íå íîâîå");//ssssssssssssss
-			return;
-			}
 		}
 		if(b.getType().equals(Material.DIAMOND_ORE))return;
 		if(p.hasPermission("str.admin")) return;
 		if(isOreNear(b)) {
 			Block ore = nearOreXYZ(b);
-			ArrayList<Block> oreCluster = clusterDetect(ore,b);
+			ArrayList<Block> oreCluster = clusterDetect(ore);
+			if(ores.get(p)!=null) {
+				if(ores.get(p).equals(oreCluster)) {
+					return;
+				}
+			}
 			if(isClusterHidden(oreCluster,b)) {
-				Bukkit.broadcastMessage("Ïîäîçğèòåëüíî");//ssssssssssssss
 				ores.put(p, oreCluster);
-				Bukkit.broadcastMessage(ores.toString());
+				oreToConfig(p);
+				if(isXrayEnabled(p)){
+					p.sendMessage("ÁÀÍ");
+				}
 			}
 			return;
 		}
-		
+		nonOreToConfig(p);
+		return;
+	}
+	public void oreToConfig(Player p) {
+		File homes = new File(plugin.getDataFolder() + File.separator + "AntiXray.yml");
+		FileConfiguration h = YamlConfiguration.loadConfiguration(homes);
+		String name = p.getName();
+		int ore = h.getInt("AntiXray." + name + ".diamondOre");
+		ore++;
+		h.set("AntiXray." + name + ".diamondOre", ore);
+				try {
+			h.save(homes);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	 }
+	public void nonOreToConfig(Player p) {
+		File homes = new File(plugin.getDataFolder() + File.separator + "AntiXray.yml");
+		FileConfiguration h = YamlConfiguration.loadConfiguration(homes);
+		String name = p.getName();
+		int block = h.getInt("AntiXray." + name + ".nonOre");
+		block++;
+		h.set("AntiXray." + name + ".nonOre", block);
+				try {
+			h.save(homes);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	 }
+	public boolean isXrayEnabled(Player p){
+		File homes = new File(plugin.getDataFolder() + File.separator + "AntiXray.yml");
+		FileConfiguration h = YamlConfiguration.loadConfiguration(homes);
+		String name = p.getName();
+		int ore = h.getInt("AntiXray." + name + ".diamondOre");
+		int block = h.getInt("AntiXray." + name + ".nonOre");
+		Double xrayValue = h.getDouble("AAXray");
+		Double warnValue = h.getDouble("AWarnXray");
+		if(ore>2) {
+			Double playerValue = (double) (block/ore);
+			if(playerValue<xrayValue) {
+				plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "ban " + p.getName() + " §cXray violation §a"+ playerValue);	
+				Bukkit.broadcastMessage("§7[§cÑÈÑÒÅÌÀ§7]: §6"+ p.getName()+" §4çàáëîêèğîâàí §açà èñïîëüçîâàíèå §6X-RAY");
+				return true;
+			}
+			if(playerValue<warnValue) {
+				plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "lp user " + p.getName() + " parent add xray");	
+				plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "kick " + p.getName() + " §cXray violation §a"+ playerValue);	
+				Bukkit.broadcastMessage("§7[§cÑÈÑÒÅÌÀ§7]: §6"+ p.getName()+" §bïîäîçğåâàåòñÿ §aâ èñïîëüçîâàíèè §6X-RAY");
+				return false;
+			}
+		}
+		return false;
 	}
 	public boolean isOreNear(Block b) {
-		ArrayList<Block> ores = new ArrayList<Block>();
 		for(int x = -1; x < 2; x++) {
 			for(int y = -1; y < 2; y++) {
 				for (int z = -1; z < 2; z++) {
@@ -78,7 +132,7 @@ public class AntiXrayListener implements Listener{
 		}
 		return ore;
 	}
-	public ArrayList<Block> clusterDetect(Block b, Block broken) {
+	public ArrayList<Block> clusterDetect(Block b) {
 		ArrayList<Block> blocks = new ArrayList<Block>();
 		for(int x = -2; x < 3; x++) {
 			for(int y = -2; y < 3; y++) {
