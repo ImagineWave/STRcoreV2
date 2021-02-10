@@ -26,10 +26,12 @@ public class AntiXrayListener implements Listener{
 		this.plugin = plugin;	
 	}
 	public HashMap<Player , ArrayList<Block>> ores = new HashMap<Player , ArrayList<Block>>();
+	public HashMap<Player , ArrayList<Block>> oresNether = new HashMap<Player , ArrayList<Block>>();
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent e) {
 		Player p = e.getPlayer();
 		Block b = e.getBlock();
+		if(!b.getWorld().getName().equalsIgnoreCase("world"))return;
 		if(b.getY()>16) {
 			ores.remove(p);
 			return;
@@ -56,6 +58,30 @@ public class AntiXrayListener implements Listener{
 		nonOreToConfig(p);
 		return;
 	}
+	@EventHandler
+	public void onBlockBreakNether(BlockBreakEvent e) {
+		Player p = e.getPlayer();
+		Block b = e.getBlock();
+		if(!b.getWorld().getName().equalsIgnoreCase("world_nether"))return;
+		if(b.getY()>22) {
+			return;
+		}
+		if(b.getType().equals(Material.ANCIENT_DEBRIS))return;
+		if(p.hasPermission("str.admin")) return;
+		if(isOreNearNether(b)) {
+		Block ore = nearOreXYZNether(b);
+		ArrayList<Block> oreCluster = clusterDetectNether(ore);
+		if(oresNether.get(p)!=null) {
+			if(oresNether.get(p).equals(oreCluster)) {
+				return;
+			}
+		}
+		oresNether.put(p, oreCluster);
+		oreToConfigNether(p);
+		}
+		nonOreToConfigNether(p);
+		return;
+	}
 	public void oreToConfig(Player p) {
 		File homes = new File(plugin.getDataFolder() + File.separator + "AntiXray.yml");
 		FileConfiguration h = YamlConfiguration.loadConfiguration(homes);
@@ -69,6 +95,19 @@ public class AntiXrayListener implements Listener{
 			e1.printStackTrace();
 		}
 	 }
+	public void oreToConfigNether(Player p) {
+		File homes = new File(plugin.getDataFolder() + File.separator + "AntiXray.yml");
+		FileConfiguration h = YamlConfiguration.loadConfiguration(homes);
+		String name = p.getName();
+		int ore = h.getInt("AntiXray." + name + ".ancientDerbis");
+		ore++;
+		h.set("AntiXray." + name + ".ancientDerbis", ore);
+				try {
+			h.save(homes);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	 }
 	public void nonOreToConfig(Player p) {
 		File homes = new File(plugin.getDataFolder() + File.separator + "AntiXray.yml");
 		FileConfiguration h = YamlConfiguration.loadConfiguration(homes);
@@ -76,6 +115,19 @@ public class AntiXrayListener implements Listener{
 		int block = h.getInt("AntiXray." + name + ".nonOre");
 		block++;
 		h.set("AntiXray." + name + ".nonOre", block);
+				try {
+			h.save(homes);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	 }
+	public void nonOreToConfigNether(Player p) {
+		File homes = new File(plugin.getDataFolder() + File.separator + "AntiXray.yml");
+		FileConfiguration h = YamlConfiguration.loadConfiguration(homes);
+		String name = p.getName();
+		int block = h.getInt("AntiXray." + name + ".nonOreNether");
+		block++;
+		h.set("AntiXray." + name + ".nonOreNether", block);
 				try {
 			h.save(homes);
 		} catch (IOException e1) {
@@ -98,9 +150,24 @@ public class AntiXrayListener implements Listener{
 				return true;
 			}
 			if(playerValue<warnValue) {
+					int warns = h.getInt("AntiXray." + name + ".warn");
+					if(warns==0){
 				plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "lp user " + p.getName() + " parent add xray");	
 				plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "kick " + p.getName() + " §cXray violation §a"+ playerValue);	
 				Bukkit.broadcastMessage("§7[§cÑÈÑÒÅÌÀ§7]: §6"+ p.getName()+" §bïîäîçðåâàåòñÿ §aâ èñïîëüçîâàíèè §6X-RAY");
+					}
+					if(warns==2) {
+						plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "ban " + p.getName() + " §cXray violation §a"+ playerValue);	
+						Bukkit.broadcastMessage("§7[§cÑÈÑÒÅÌÀ§7]: §6"+ p.getName()+" §4çàáëîêèðîâàí §açà èñïîëüçîâàíèå §6X-RAY");
+						return true;
+					}
+					warns++;
+					h.set("AntiXray." + name + ".warn", warns);
+					try {
+						h.save(homes);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
 				return false;
 			}
 		}
@@ -111,6 +178,18 @@ public class AntiXrayListener implements Listener{
 			for(int y = -1; y < 2; y++) {
 				for (int z = -1; z < 2; z++) {
 					if(b.getRelative(x, y, z).getType().equals(Material.DIAMOND_ORE)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	public boolean isOreNearNether(Block b) {
+		for(int x = -1; x < 2; x++) {
+			for(int y = -1; y < 2; y++) {
+				for (int z = -1; z < 2; z++) {
+					if(b.getRelative(x, y, z).getType().equals(Material.ANCIENT_DEBRIS)) {
 						return true;
 					}
 				}
@@ -132,12 +211,39 @@ public class AntiXrayListener implements Listener{
 		}
 		return ore;
 	}
+	public Block nearOreXYZNether(Block b) {
+		Block ore = b;
+		for(int x = -1; x < 2; x++) {
+			for(int y = -1; y < 2; y++) {
+				for (int z = -1; z < 2; z++) {
+					if(b.getRelative(x, y, z).getType().equals(Material.ANCIENT_DEBRIS)) {
+						ore = b.getRelative(x, y, z);
+						return ore;
+					}
+				}
+			}
+		}
+		return ore;
+	}
 	public ArrayList<Block> clusterDetect(Block b) {
 		ArrayList<Block> blocks = new ArrayList<Block>();
 		for(int x = -2; x < 3; x++) {
 			for(int y = -2; y < 3; y++) {
 				for (int z = -2; z < 3; z++) {
 					if(b.getRelative(x, y, z).getType().equals(Material.DIAMOND_ORE)) {
+						blocks.add(b.getRelative(x, y, z));
+					}
+				}
+			}
+		}
+		return blocks;
+	}
+	public ArrayList<Block> clusterDetectNether(Block b) {
+		ArrayList<Block> blocks = new ArrayList<Block>();
+		for(int x = -2; x < 3; x++) {
+			for(int y = -2; y < 3; y++) {
+				for (int z = -2; z < 3; z++) {
+					if(b.getRelative(x, y, z).getType().equals(Material.ANCIENT_DEBRIS)) {
 						blocks.add(b.getRelative(x, y, z));
 					}
 				}
@@ -152,7 +258,7 @@ public class AntiXrayListener implements Listener{
 			for(int x = -1; x < 2; x++) {
 				for(int y = -1; y < 2; y++) {
 					for (int z = -1; z < 2; z++) {
-						if(ores.get(i).getRelative(x,y,z).getType().equals(Material.AIR) && ores.get(i).getRelative(x,y,z).getLocation()!= brokenBlockLoc) {
+						if((ores.get(i).getRelative(x,y,z).getType().equals(Material.AIR) || ores.get(i).getRelative(x,y,z).getType().equals(Material.WATER)) && ores.get(i).getRelative(x,y,z).getLocation()!= brokenBlockLoc) {
 							counter++;
 						}
 					}
