@@ -74,6 +74,7 @@ public Handler(Main plugin) {
 public void mobProtect(CreatureSpawnEvent e) {
 	Location loc = e.getEntity().getLocation();
 	if(!loc.getWorld().getName().equalsIgnoreCase("world")) return;
+	if(e.getEntityType() == EntityType.PLAYER) return;
 	Location spawn = SpawnToLoc();
 	int blockX = loc.getBlockX();
 	int blockY = loc.getBlockY();
@@ -91,6 +92,10 @@ public void mobProtect(CreatureSpawnEvent e) {
 			e.setCancelled(true);
 			return;
 		}
+	}
+	if(blockY<50&&e.getEntityType()!= EntityType.SLIME) {
+		e.setCancelled(true);
+		return;
 	}
 	return;
 }
