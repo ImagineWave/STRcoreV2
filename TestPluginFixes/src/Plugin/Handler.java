@@ -86,7 +86,6 @@ public void mobProtect(CreatureSpawnEvent e) {
 	int spawnModY =  Math.abs(spawn.getBlockY());
 	int spawnModZ =  Math.abs(spawn.getBlockZ());
 	if((modX-spawnModX<200)&&(modY-spawnModY<200)&&(modZ-spawnModZ<200)) {
-		//if((e.getEntityType() == EntityType.ZOMBIE) || (e.getEntityType() == EntityType.ENDERMAN) || (e.getEntityType() == EntityType.CREEPER) || (e.getEntityType() == EntityType.SKELETON) || (e.getEntityType() == EntityType.WITCH) || (e.getEntityType() == EntityType.ZOMBIE_VILLAGER)||(e.getEntityType() == EntityType.STRAY) || (e.getEntityType() == EntityType.SPIDER)){
 		if(e.getEntityType() != EntityType.PLAYER)
 		{
 			e.setCancelled(true);

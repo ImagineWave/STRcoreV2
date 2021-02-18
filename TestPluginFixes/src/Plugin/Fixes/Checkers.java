@@ -78,6 +78,9 @@ public class Checkers implements Listener {
     private boolean isEnchantsOp (ItemStack item, Player p) {
     	boolean overpower = false;
     	if (p.hasPermission("str.bypass.enchant") || (p.hasPermission("str.bypass.*"))) return false;
+    	if(item.getItemMeta().hasLore()) {
+    		if(item.getItemMeta().getLore().get(0) == "§4ПКМ для смены режима") return false;
+    	}
     	if (p.isOp()) return false;
     	if (item.getType() == Material.AIR) return false;
     	if ( ( !item.hasItemMeta() ) )return false;
