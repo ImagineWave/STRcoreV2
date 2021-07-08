@@ -14,14 +14,14 @@ public class Broadcast implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		 if (!sender.hasPermission("str.broadcast")) {
-	        	MessageManager.getManager().msg(sender, MessageType.BAD, "Ó âàñ íåò ïğàâ");
+	        	MessageManager.getManager().msg(sender, MessageType.BAD, "Ğ£ Ğ²Ğ°Ñ Ğ½ĞµÑ‚ Ğ¿Ñ€Ğ°Ğ²");
 	            return true;
 	        }
 		 String message = "";
 			for (int i = 0; i != args.length; i++) {
 				message += args[i] +" ";
 			}
-			Bukkit.broadcastMessage("§r§a[§4§nÎáúÿâëåíèå§a]: §b"+ message);
+			Bukkit.broadcastMessage("Â§a[Â§4Â§nĞĞ±ÑŠÑĞ²Ğ»ĞµĞ½Ğ¸ĞµÂ§a]: Â§b"+ message);
 		return true;
 	}
 

@@ -15,10 +15,10 @@ import Plugin.MessageManager.MessageType;
 
 public class BedTp implements CommandExecutor{
 	private Main plugin;
-
 	public BedTp(Main plugin) {
 		this.plugin = plugin;
 	}
+	
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -31,10 +31,10 @@ public class BedTp implements CommandExecutor{
 		try{
 			 	Location bed = configToLoc(args[0]);
 				p.teleport(bed);
-				MessageManager.getManager().msg(sender, MessageType.INFO, "Вы телепортировались к кровати игрока §6" + args[0]);
+				MessageManager.getManager().msg(sender, MessageType.INFO, "Р”РѕР±СЂРѕ РїРѕР¶Р°Р»РѕРІС‚СЊ РІ РґРѕРј РёРіСЂРѕРєР° В§6" + args[0]);
 				}
 				catch (IllegalArgumentException e) {
-					MessageManager.getManager().msg(sender, MessageType.BAD, "Игрок незарегистрирован и/или не имеет кровати");
+					MessageManager.getManager().msg(sender, MessageType.BAD, "РРіСЂРѕРєР° РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ / РЅРµ РёРјРµРµС‚ РєСЂРѕРІР°С‚Рё");
 					return true;
 			}
 		return false;

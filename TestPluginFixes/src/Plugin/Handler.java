@@ -35,22 +35,20 @@ public Handler(Main plugin) {
 	public void spawnPlayer(PlayerJoinEvent e) {
 	Player p = e.getPlayer();
 	String name = p.getName();
-	MessageManager.getManager().msg(p, MessageType.INFO, "Добро пожаловать на сервер, "+ name);
-	if(DrReyziBoy()) MessageManager.getManager().msg(p, MessageType.GOOD, "У нашего куратора §dReyziBoy §aсегодня День Рождения, поздравим его все вместе!!!");
-	if(DrDoctor_Dew()) MessageManager.getManager().msg(p, MessageType.GOOD, "У нашего Гл.Админа §bDoctor_Dew §aсегодня День Рождения, поздравим его все вместе!!!");
+	MessageManager.getManager().msg(p, MessageType.INFO, "Р”РѕР±СЂРѕ РїРѕР¶Р°Р»РѕРІР°С‚СЊ РЅР° СЃРµСЂРІРµСЂ, "+ name);
 	File players = new File(plugin.getDataFolder() + File.separator + "players.yml");
 	FileConfiguration users = YamlConfiguration.loadConfiguration(players);
 	List<String> list = users.getStringList("users");//govno ebanoe
 	if(list.contains(p.getName())) return;
 	{
-		Home home = new Home(plugin); // Штука для установки точки дома
+		Home home = new Home(plugin); // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 		list.add(p.getName());
 		Location spawn = SpawnToLoc();
 		p.teleport(spawn);
-		Bukkit.broadcastMessage("§aПоприветствуем нового игрока §d§l" + p.getName()+"§a на §b§lSTR§a§lmine§a!");
+		Bukkit.broadcastMessage("РџРѕРїСЂРёРІРµС‚СЃС‚РІСѓРµРј РёРіСЂРѕРєР° " + p.getName()+"В§a РЅР° В§bВ§lSTRВ§amine!");
 		p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 600, 4), true);
 		p.setBedSpawnLocation(spawn, true);
-		home.locToConfig(p.getName(),spawn); // Установка точки дома на спауне
+		home.locToConfig(p.getName(),spawn); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 		try {
 		StrPlayer spl = new StrPlayer(plugin);
 		spl.setNickname(p.getName());
@@ -92,10 +90,6 @@ public void mobProtect(CreatureSpawnEvent e) {
 			return;
 		}
 	}
-	if(blockY<50&&e.getEntityType()!= EntityType.SLIME) {
-		e.setCancelled(true);
-		return;
-	}
 	return;
 }
 @EventHandler
@@ -105,7 +99,7 @@ public void playerSpawnsWitherInEnd(PlayerInteractEvent e) {
 	if(!p.getLocation().getWorld().getName().equalsIgnoreCase("world_the_end"))return;
 	if((p.getInventory().getItemInMainHand().getType().equals(Material.WITHER_SKELETON_SKULL)) || (p.getInventory().getItemInOffHand().getType().equals(Material.WITHER_SKELETON_SKULL))) {
 		e.setCancelled(true);
-		p.sendMessage("§4Вызывать визера в мире world_the_end запрещено");
+		p.sendMessage("В§4РїСЂРёР·С‹РІР°С‚СЊ РІРёР·РµСЂР° РІ РјРёСЂРµ world_the_end Р·Р°РїСЂРµС‰РµРЅРѕ");
 		return;
 	}
 	return;

@@ -24,108 +24,108 @@ public class Gm implements CommandExecutor {
         Player p = (Player) sender;
 
         if (!sender.hasPermission("str.gamemode")) {
-        	MessageManager.getManager().msg(p, MessageType.BAD, "У вас нет прав для изменения режима игры");
+        	MessageManager.getManager().msg(p, MessageType.BAD, "РЈ РІР°СЃ РЅРµС‚ РїСЂР°РІ");
             return true;
         }
                 if (args.length == 0) {
-                	MessageManager.getManager().msg(p, MessageType.INFO, "Использование /gm <режим> <игрок>");
+                	MessageManager.getManager().msg(p, MessageType.INFO, "РСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ /gm <СЂРµР¶РёРј> <РёРіСЂРѕРє>");
                     return false;
                 }
                 if (args.length == 1) {
                     if (args[0].equalsIgnoreCase("survival") || args[0].equalsIgnoreCase("s")
                             || args[0].equalsIgnoreCase("0")) {
                         p.setGameMode(org.bukkit.GameMode.SURVIVAL);
-                        MessageManager.getManager().msg(p, MessageType.GOOD, "Ваш игровой режим: §bsurvival");
+                        MessageManager.getManager().msg(p, MessageType.GOOD, "Р’Р°С€ РёРіСЂРѕРІРѕР№ СЂРµР¶РёРј: В§bsurvival");
                         for(Player pls : Bukkit.getServer().getOnlinePlayers()) {
             				if (pls.hasPermission("str.spy.admin")) {
-            					pls.sendMessage("§7[SPY]: "+p.getName()+" сменил режим игры на survival");
+            					pls.sendMessage("пїЅ7[SPY]: "+p.getName()+" СЃРјРµРЅРёР» СЂРµР¶РёРј РёРіСЂС‹ РЅР° survival");
             				}
             			}
                         return true;
                     } else if (args[0].equalsIgnoreCase("creative") || args[0].equalsIgnoreCase("c")
                             || args[0].equalsIgnoreCase("1")) {
                     	 if (!sender.hasPermission("str.gamemode.creative")) {
-                         	MessageManager.getManager().msg(p, MessageType.BAD, "У вас нет прав для изменения режима игры");
+                         	MessageManager.getManager().msg(p, MessageType.BAD, "РЈ РІР°СЃ РЅРµС‚ РїСЂР°РІ");
                              return true;
                          }
                         p.setGameMode(org.bukkit.GameMode.CREATIVE);
-                        MessageManager.getManager().msg(p, MessageType.GOOD, "Ваш игровой режим: §bcreative");
+                        MessageManager.getManager().msg(p, MessageType.GOOD, "Р’Р°С€ РёРіСЂРѕРІРѕР№ СЂРµР¶РёРј: В§bcreative");
                         for(Player pls : Bukkit.getServer().getOnlinePlayers()) {
             				if (pls.hasPermission("str.spy.admin")) {
-            					pls.sendMessage("§7[SPY]: "+p.getName()+" сменил режим игры на creative");
+            					pls.sendMessage("пїЅ7[SPY]: "+p.getName()+" СЃРјРµРЅРёР» СЂРµР¶РёРј РёРіСЂС‹ РЅР° creative");
             				}
             			}
                         return true;
                     } else if (args[0].equalsIgnoreCase("adventure") || args[0].equalsIgnoreCase("a")
                             || args[0].equalsIgnoreCase("2")) {
                         p.setGameMode(org.bukkit.GameMode.ADVENTURE);
-                        MessageManager.getManager().msg(p, MessageType.BAD, "Ваш игровой режим: §4adventure");
+                        MessageManager.getManager().msg(p, MessageType.BAD, "Р’Р°С€ РёРіСЂРѕРІРѕР№ СЂРµР¶РёРј: В§4adventure");
                         for(Player pls : Bukkit.getServer().getOnlinePlayers()) {
             				if (pls.hasPermission("str.spy.admin")) {
-            					pls.sendMessage("§7[SPY]: "+p.getName()+" сменил режим игры на adventure");
+            					pls.sendMessage("пїЅ7[SPY]: "+p.getName()+" СЃРјРµРЅРёР» СЂРµР¶РёРј РёРіСЂС‹ РЅР° adventure");
             				}
             			}
                         return true;
                     } else if (args[0].equalsIgnoreCase("spectator") || args[0].equalsIgnoreCase("3")) {
                         p.setGameMode(GameMode.SPECTATOR);
-                        MessageManager.getManager().msg(p, MessageType.GOOD, "Ваш игровой режим: §bspectator");
+                        MessageManager.getManager().msg(p, MessageType.GOOD, "Р’Р°С€ РёРіСЂРѕРІРѕР№ СЂРµР¶РёРј: В§bspectator");
                         for(Player pls : Bukkit.getServer().getOnlinePlayers()) {
             				if (pls.hasPermission("str.spy.admin")) {
-            					pls.sendMessage("§7[SPY]: "+p.getName()+" сменил режим игры на spectator");
+            					pls.sendMessage("пїЅ7[SPY]: "+p.getName()+" СЃРјРµРЅРёР» СЂРµР¶РёРј РёРіСЂС‹ РЅР° spectator");
             				}
             			}
                         return true;
                     } else {
                         p.sendMessage(
-                                "§cYou must enter either /gamemode <survival | creative | adventure | spectator>");
+                                "В§cYou must enter either /gamemode <survival | creative | adventure | spectator>");
                     }
                 }
                 if (args.length == 2) {
                 	 if (!sender.hasPermission("str.gamemode.others")) {
-                     	MessageManager.getManager().msg(p, MessageType.BAD, "У вас нет прав для изменения режима игры другим игрокам");
+                     	MessageManager.getManager().msg(p, MessageType.BAD, "пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
                          return true;
                 	 }
                 	Player t = (Bukkit.getPlayerExact(args[1]));
                 	if (args[0].equalsIgnoreCase("survival") || args[0].equalsIgnoreCase("s")
                             || args[0].equalsIgnoreCase("0")) {
                         t.setGameMode(org.bukkit.GameMode.SURVIVAL);
-                        MessageManager.getManager().msg(t, MessageType.GOOD, "Ваш игровой режим: §bsurvival");
-                        MessageManager.getManager().msg(p, MessageType.GOOD, "Вы установили режим игры §bsurvival§2 игроку §6" + t.getName());
+                        MessageManager.getManager().msg(t, MessageType.GOOD, "пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ: пїЅbsurvival");
+                        MessageManager.getManager().msg(p, MessageType.GOOD, "пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅbsurvivalпїЅ2 пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ6" + t.getName());
                         for(Player pls : Bukkit.getServer().getOnlinePlayers()) {
             				if (pls.hasPermission("str.spy.admin")) {
-            					pls.sendMessage("§7[SPY]: "+p.getName()+" сменил режим игры на survival игроку "+t.getName());
+            					pls.sendMessage("пїЅ7[SPY]: "+p.getName()+" пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ survival пїЅпїЅпїЅпїЅпїЅпїЅ "+t.getName());
             				}
             			}
                         return true;
                     } else if (args[0].equalsIgnoreCase("creative") || args[0].equalsIgnoreCase("c")
                             || args[0].equalsIgnoreCase("1")) {
                         t.setGameMode(org.bukkit.GameMode.CREATIVE);
-                        MessageManager.getManager().msg(t, MessageType.GOOD, "Ваш игровой режим: §bcreative");
-                        MessageManager.getManager().msg(p, MessageType.GOOD, "Вы установили режим игры §bcreative§2 игроку §6" + t.getName());
+                        MessageManager.getManager().msg(t, MessageType.GOOD, "пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ: пїЅbcreative");
+                        MessageManager.getManager().msg(p, MessageType.GOOD, "пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅbcreativeпїЅ2 пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ6" + t.getName());
                         for(Player pls : Bukkit.getServer().getOnlinePlayers()) {
             				if (pls.hasPermission("str.spy.admin")) {
-            					pls.sendMessage("§7[SPY]: "+p.getName()+" сменил режим игры на creative игроку "+t.getName());
+            					pls.sendMessage("пїЅ7[SPY]: "+p.getName()+" пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ creative пїЅпїЅпїЅпїЅпїЅпїЅ "+t.getName());
             				}
             			}
                         return true;
                     } else if (args[0].equalsIgnoreCase("adventure") || args[0].equalsIgnoreCase("a")
                             || args[0].equalsIgnoreCase("2")) {
                         t.setGameMode(org.bukkit.GameMode.ADVENTURE);
-                        MessageManager.getManager().msg(t, MessageType.BAD, "Ваш игровой режим: §4adventure");
-                        MessageManager.getManager().msg(p, MessageType.GOOD, "Вы установили режим игры §4adventure§2 игроку §6" + t.getName());
+                        MessageManager.getManager().msg(t, MessageType.BAD, "пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ: пїЅ4adventure");
+                        MessageManager.getManager().msg(p, MessageType.GOOD, "пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ4adventureпїЅ2 пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ6" + t.getName());
                         for(Player pls : Bukkit.getServer().getOnlinePlayers()) {
             				if (pls.hasPermission("str.spy.admin")) {
-            					pls.sendMessage("§7[SPY]: "+p.getName()+" сменил режим игры на adventure игроку "+t.getName());
+            					pls.sendMessage("пїЅ7[SPY]: "+p.getName()+" пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ adventure пїЅпїЅпїЅпїЅпїЅпїЅ "+t.getName());
             				}
             			}
                         return true;
                     } else if (args[0].equalsIgnoreCase("spectator") || args[0].equalsIgnoreCase("3")) {
                         t.setGameMode(GameMode.SPECTATOR);
-                        MessageManager.getManager().msg(t, MessageType.GOOD, "Ваш игровой режим: §bspectator");
-                        MessageManager.getManager().msg(p, MessageType.GOOD, "Вы установили режим игры §bspectator§2 игроку §6" + t.getName());
+                        MessageManager.getManager().msg(t, MessageType.GOOD, "пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ: пїЅbspectator");
+                        MessageManager.getManager().msg(p, MessageType.GOOD, "пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅbspectatorпїЅ2 пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ6" + t.getName());
                         for(Player pls : Bukkit.getServer().getOnlinePlayers()) {
             				if (pls.hasPermission("str.spy.admin")) {
-            					pls.sendMessage("§7[SPY]: "+p.getName()+" сменил режим игры на spectator игроку "+t.getName());
+            					pls.sendMessage("пїЅ7[SPY]: "+p.getName()+" пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ spectator пїЅпїЅпїЅпїЅпїЅпїЅ "+t.getName());
             				}
             			}
                         return true;
