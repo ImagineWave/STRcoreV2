@@ -23,11 +23,11 @@ public class MuteSetter implements CommandExecutor{
 	        }
 		 Player p = (Player) sender;
 		 if (!sender.hasPermission("str.tempmute")) {
-			 MessageManager.getManager().msg(p, MessageType.BAD, "У вас нет прав для использования команды tempmute");
+			 MessageManager.getManager().msg(p, MessageType.BAD, "РЈ РІР°СЃ РЅРµС‚ РїСЂР°РІ");
 			 return true;
 		 }
 		 if(args.length == 0) {
-				MessageManager.getManager().msg(p, MessageType.INFO, "Использование: /tempmute <player> <time (секунд)> <Причина>");
+				MessageManager.getManager().msg(p, MessageType.INFO, "РСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ: /tempmute <player> <time (пїЅпїЅпїЅпїЅпїЅпїЅ)> <пїЅпїЅпїЅпїЅпїЅпїЅпїЅ>");
 				return true;
 		 }
 		 if(args.length == 1) {
@@ -36,7 +36,7 @@ public class MuteSetter implements CommandExecutor{
 				 unmutePlayer(t,p);
 				 return true;
 			 }
-			 MessageManager.getManager().msg(p, MessageType.BAD, "Вы не можете снять мут, выданный другим игроком");
+			 MessageManager.getManager().msg(p, MessageType.BAD, "Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ СЃРЅСЏС‚СЊ РјСѓС‚, РІС‹РґР°РЅС‹Р№ РґСЂСѓРіРёРј РёРіСЂРѕРєРѕРј");
 			 return true;
 		 }
 		 if(args.length >= 2) {
@@ -48,11 +48,11 @@ public class MuteSetter implements CommandExecutor{
 			 try {
 			 Long time = Long.parseLong(args[1]);
 			 if( (time> 3600) && (!p.hasPermission("str.tempmute.ulimited"))){
-				 MessageManager.getManager().msg(p, MessageType.BAD, "Вы не можете мутить более чем на час");
+				 MessageManager.getManager().msg(p, MessageType.BAD, "Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ РјСѓС‚РёС‚СЊ Р±РѕР»РµРµ С‡РµРј РЅР° С‡Р°СЃ");
 				 return true;
 			 }
 			 if(!canRewriteMute(t, p)) {
-				 MessageManager.getManager().msg(p, MessageType.BAD, "Вы не можете изменить мут, выданный другим игроком");
+				 MessageManager.getManager().msg(p, MessageType.BAD, "Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ СЃРЅСЏС‚СЊ РјСѓС‚, РІС‹РґР°РЅС‹Р№ РґСЂСѓРіРёРј РёРіСЂРѕРєРѕРј");
 				 return true;
 			 }
 			 Long qtime = System.currentTimeMillis() + time*1000;
@@ -60,7 +60,7 @@ public class MuteSetter implements CommandExecutor{
 			 StrPlayerToMute(t,qtime,reason,p);
 			 }
 			 catch (NumberFormatException e) {
-				 MessageManager.getManager().msg(p, MessageType.BAD, "Укажите время в секундах");
+				 MessageManager.getManager().msg(p, MessageType.BAD, "РЈРєР°Р¶РёС‚Рµ РІСЂРµРјСЏ РІ СЃРµРєСѓРЅРґР°С…");
 				 return true;
 			 }
 		 }
@@ -89,8 +89,8 @@ public class MuteSetter implements CommandExecutor{
 		spl.setMutedBy(m.getName());
 		spl.setPlayerCfg(spl);
 		String msgduration = formatDuration((time-System.currentTimeMillis())/1000);
-		Bukkit.broadcastMessage("§7[§cНаказание§7]: §6"+ m.getName()+" §bзамутил игрока §6"+p.getName()+"§b на §6" + msgduration+ "§b по причине §6" + reason);
-		MessageManager.getManager().msg(p, MessageType.BAD, "Вас замутил §6"+m.getName()+"§c на §6" + msgduration+ "§c по причине §6" + reason);
+		Bukkit.broadcastMessage("В§7[В§cРќР°РєР°Р·Р°РЅРёРµВ§7]: В§6"+ m.getName()+" В§bР—Р°РјСѓС‚РёР» РёРіСЂРѕРєР° В§6"+p.getName()+"В§b РЅР° В§6" + msgduration+ "В§b РїРѕ РїСЂРёС‡РёРЅРµ В§6" + reason);
+		MessageManager.getManager().msg(p, MessageType.BAD, "Р’Р°СЃ Р·Р°РјСѓС‚РёР» В§6"+m.getName()+"В§c РЅР° В§6" + msgduration+ "В§c РїРѕ РїСЂРёС‡РёРЅРµ В§6" + reason);
 	}
 	public void unmutePlayer(Player p, Player m) {
 		StrPlayer spl = new StrPlayer(p,plugin);
@@ -99,7 +99,7 @@ public class MuteSetter implements CommandExecutor{
 		spl.setMuteTime(0);
 		spl.setMutedBy(m.getName());
 		spl.setPlayerCfg(spl);
-		Bukkit.broadcastMessage("§7[§cНаказание§7]: §6"+ m.getName()+" §aснял мут с игрока §6"+p.getName());
+		Bukkit.broadcastMessage("В§7[В§cРќР°РєР°Р·Р°РЅРёРµВ§7]: В§6"+ m.getName()+" В§aСЃРЅСЏР» РјСѓС‚ СЃ РёРіСЂРѕРєР° В§6"+p.getName());
 	}
 	
 	public String formatDuration(Long time) {
@@ -110,9 +110,9 @@ public class MuteSetter implements CommandExecutor{
 		String stminutes = Long.toString(minutes);
 		String stseconds = Long.toString(seconds);
 		String msgduration = "";
-		if(hours != 0) msgduration += sthours + " час(ов) ";
-		if(minutes != 0) msgduration += stminutes + " минут(а) ";
-		if(seconds != 0) msgduration += stseconds + " секунд(а) ";
+		if(hours != 0) msgduration += sthours + " hour(s) ";
+		if(minutes != 0) msgduration += stminutes + " minute(s) ";
+		if(seconds != 0) msgduration += stseconds + " second(s) ";
 		return msgduration;
 	}
 }

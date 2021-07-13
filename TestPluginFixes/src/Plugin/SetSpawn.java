@@ -52,11 +52,11 @@ public class SetSpawn implements CommandExecutor{
 		}
 		Player p = (Player) sender;
 		if (!sender.hasPermission("str.setspawn")) {
-        	MessageManager.getManager().msg(p, MessageType.BAD, "У вас нет прав установки спауна!");
+        	MessageManager.getManager().msg(p, MessageType.BAD, "РЈ РІР°СЃ РЅРµС‚ РїСЂР°РІ");
             return true;
         }
 		locToConfig(p.getLocation());
-		MessageManager.getManager().msg(sender, MessageType.INFO, "Спаун установлен!");
+		MessageManager.getManager().msg(sender, MessageType.INFO, "РЎРїР°СѓРЅ СѓСЃС‚Р°РЅРѕРІР»РµРЅ!");
 		return false;
 	}
 

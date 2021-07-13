@@ -34,17 +34,17 @@ public class Home implements CommandExecutor {
 			}
 			Player p = (Player) sender;
 			if (!p.hasPermission("str.home")){
-				MessageManager.getManager().msg(p, MessageType.BAD, "У вас нет прав");
+				MessageManager.getManager().msg(p, MessageType.BAD, "РЈ РІР°СЃ РЅРµС‚ РїСЂР°РІ");
 				return true;
 			}
 			if(p.getLocation().getWorld().getName().equalsIgnoreCase("world_the_end")){
-			        MessageManager.getManager().msg(p, MessageType.BAD, "sethome в мире the_end запрещен");
-			        p.kickPlayer("§csethome в мире the_end запрещен");
-			        Bukkit.broadcastMessage(p.getName() + " §cНе умеет читать");
+			        MessageManager.getManager().msg(p, MessageType.BAD, "sethome РІ РјРёСЂРµ world_the_end Р·Р°РїСЂРµС‰РµРЅ");
+			        p.kickPlayer("В§csethome РІ РјРёСЂРµ world_the_end Р·Р°РїСЂРµС‰РµРЅ");
+			        Bukkit.broadcastMessage(p.getName() + " В§cРќРµ С‡РёС‚Р°Р» РїСЂР°РІРёР»");
 			        return true;      
 			}
 			locToConfig(p.getName(), p.getLocation());
-			MessageManager.getManager().msg(sender, MessageType.INFO, "Дом установлен!");
+			MessageManager.getManager().msg(sender, MessageType.INFO, "Р”РѕРј СѓСЃС‚Р°РЅРѕРІР»РµРЅ!");
 		return true;
 	}
 	

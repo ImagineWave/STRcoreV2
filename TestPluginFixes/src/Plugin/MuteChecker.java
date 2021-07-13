@@ -25,7 +25,7 @@ public void MuteCheckers2(AsyncPlayerChatEvent e) {
 	String msgduration = formatDuration((duration-qtime)/1000);
 	if(duration>qtime) {
 			e.setCancelled(true);
-			MessageManager.getManager().msg(p, MessageType.BAD, "У вас блокировка чата еще §6"+ msgduration + " §cсекунд по причине §6" + reason);
+			MessageManager.getManager().msg(p, MessageType.BAD, "РЈ РІР°СЃ Р±Р»РѕРєРёСЂРѕРІРєР° С‡Р°С‚Р° РµС‰Рµ пїЅ6"+ msgduration + " В§c РїРѕ РїСЂРёС‡РёРЅРµ пїЅ6" + reason);
 			return;
 		}
 }
@@ -39,7 +39,7 @@ public void guestToMute(AsyncPlayerChatEvent e) {
 	if(p.isOp()) return;
 	StrPlayer spl = new StrPlayer(p,plugin);
 	spl.setMuted(true);
-	spl.setMuteReason("Задержка чата");
+	spl.setMuteReason("Р—Р°РґРµСЂР¶РєР° С‡Р°С‚Р°");
 	spl.setMuteTime(System.currentTimeMillis()+5000);
 	spl.setMutedBy("console");
 	spl.setPlayerCfg(spl);
@@ -55,9 +55,9 @@ public String formatDuration(Long time) {
 	String stminutes = Long.toString(minutes);
 	String stseconds = Long.toString(seconds);
 	String msgduration = "";
-	if(hours != 0) msgduration += sthours + " час(ов) ";
-	if(minutes != 0) msgduration += stminutes + " минут(а) ";
-	if(seconds != 0) msgduration += stseconds + " секунд(а) ";
+	if(hours != 0) msgduration += sthours + " hour(s) ";
+	if(minutes != 0) msgduration += stminutes + " minute(s) ";
+	if(seconds != 0) msgduration += stseconds + " second(s) ";
 	return msgduration;
 }
 

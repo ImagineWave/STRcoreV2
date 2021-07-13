@@ -22,32 +22,32 @@ public PrivateMsgs(Main plugin) {
 			return true;
 		}
 		if (args.length == 0) {
-			p.sendMessage("§6[§4ЛС§6] §cИспользование /pm <Игрок> <сообщение>");
+			p.sendMessage("В§6[В§4Р›РЎВ§6] В§cРСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ /pm <РРіСЂРѕРє> <РЎРѕРѕР±С‰РµРЅРёРµ>");
 			return true;
 		}
 		
 		if(!Bukkit.getOnlinePlayers().contains(Bukkit.getPlayerExact(args[0]))) {
-			p.sendMessage("§6[§4ЛС§6] §cИгрок не в сети");
+			p.sendMessage("В§6[В§4Р›РЎВ§6] В§cРРіСЂРѕРє РЅРµ РІ СЃРµС‚Рё");
 			return true;
 		}
 		Player t = Bukkit.getPlayerExact(args[0]);
 		if(p.getName() == t.getName()) {
-			p.sendMessage("§6[§4ЛС§6] §cВы не можете писать самому себе!");
+			p.sendMessage("В§6[В§4Р›РЎВ§6] В§cР’С‹ РЅРµ РјРѕР¶РµС‚Рµ РїРёСЃР°С‚СЊ СЃР°РјРѕРјСѓ СЃРµР±Рµ!");
 			return true;
 		}
 		if (args.length == 1) {
-			p.sendMessage("§6[§4ЛС§6] §cВведите ваше сообщение");
+			p.sendMessage("В§6[В§4Р›РЎВ§6] В§cР’РІРµРґРёС‚Рµ РІР°С€Рµ СЃРѕРѕР±С‰РµРЅРёРµ");
 			return true;
 		}
 			String message = "";
 			for (int i = 1; i != args.length; i++) {
 				message += args[i] +" ";
 			}
-			p.sendMessage("§6[§4ЛС§6] §8[§bВЫ §a>>> §b"+t.getName()+"§8]: §6"+ message);
-			t.sendMessage("§6[§4ЛС§6] §8[§b"+p.getName()+" §a>>> §b ВЫ§8]: §6"+ message);
+			p.sendMessage("В§6[В§4Р›РЎВ§6] В§8[пїЅВ§bР’Р« В§a>>> В§b"+t.getName()+"В§8]: В§6"+ message);
+			t.sendMessage("В§6[В§4Р›РЎВ§6] В§8[В§b"+p.getName()+" В§a>>> В§b Р’Р«В§8]: В§6"+ message);
 			for(Player pls : Bukkit.getServer().getOnlinePlayers()) {
 				if (pls.hasPermission("str.spy")) {
-					pls.sendMessage("§7[SPY]: "+p.getName()+" >>> "+ t.getName()+": "+ message);
+					pls.sendMessage("пїЅ7[SPY]: "+p.getName()+" >>> "+ t.getName()+": "+ message);
 				}
 			}
 			
@@ -60,7 +60,7 @@ public PrivateMsgs(Main plugin) {
 		String reason = spl.getMuteReason();
 		String msgduration = formatDuration((duration-qtime)/1000);
 		if(duration>qtime) {
-				MessageManager.getManager().msg(p, MessageType.BAD, "У вас блокировка чата еще §6"+ msgduration + " §cсекунд по причине §6" + reason);
+				MessageManager.getManager().msg(p, MessageType.BAD, "РЈ РІР°СЃ Р±Р»РѕРєРёСЂРѕРІРєР° С‡Р°С‚Р° РµС‰Рµ пїЅ6"+ msgduration + " В§c РїРѕ РїСЂРёС‡РёРЅРµ пїЅ6" + reason);
 				return true;
 			}
 		return false;
@@ -73,9 +73,9 @@ public PrivateMsgs(Main plugin) {
 		String stminutes = Long.toString(minutes);
 		String stseconds = Long.toString(seconds);
 		String msgduration = "";
-		if(hours != 0) msgduration += sthours + " час(ов) ";
-		if(minutes != 0) msgduration += stminutes + " минут(а) ";
-		if(seconds != 0) msgduration += stseconds + " секунд(а) ";
+		if(hours != 0) msgduration += sthours + " hour(s) ";
+		if(minutes != 0) msgduration += stminutes + " minute(s) ";
+		if(seconds != 0) msgduration += stseconds + " second(s) ";
 		return msgduration;
 	}
 

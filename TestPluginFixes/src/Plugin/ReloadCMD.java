@@ -16,11 +16,10 @@ public class ReloadCMD implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(!sender.hasPermission("str.reload")) {
-			MessageManager.getManager().msg(sender, MessageType.BAD, "У вас нет прав для перезагрузки сервера");
+			MessageManager.getManager().msg(sender, MessageType.BAD, "РЈ РІР°СЃ РЅРµС‚ РїСЂР°РІ");
 			return true;
 		}
-		Bukkit.broadcastMessage("§r§a[§4§nОбъявление§a]: §bПерезагрузка сервера");
-		Bukkit.broadcastMessage("§r§a[§4§nОбъявление§a]: §bНужно будет повторно ввести команду /login ПАРОЛЬ");
+		Bukkit.broadcastMessage("В§a[В§4В§nРћР±СЉСЏРІР»РµРЅРёРµВ§a]: В§bРџРµСЂРµР·Р°РіСЂСѓР·РєР° СЃРµСЂРІРµСЂР°. Р’РІРµРґРёС‚Рµ РєРѕРјР°РЅРґСѓ В§a/login <РїР°СЂРѕР»СЊ>");
 		Bukkit.reload();
 		return true;
 	}

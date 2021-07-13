@@ -35,36 +35,36 @@ public class TpHome implements CommandExecutor {
 		if (args.length == 0) {
 		Player p = (Player) sender;
 		if (!p.hasPermission("str.home")){
-			MessageManager.getManager().msg(p, MessageType.BAD, "У вас нет прав");
+			MessageManager.getManager().msg(p, MessageType.BAD, "РЈ РІР°СЃ РЅРµС‚ РїСЂР°РІ");
 			return true;
 		}
 		Location home = configToLoc(p.getName());
 		//configToLoc(p.getName());
 		p.teleport(home);
-		MessageManager.getManager().msg(sender, MessageType.INFO, "Добро пожаловать домой!");
+		MessageManager.getManager().msg(sender, MessageType.INFO, "Р”РѕР±СЂРѕ РїРѕР¶Р°Р»РѕРІР°С‚СЊ РґРѕРјРѕР№!");
 		}
 		if (args.length == 1) {
 			Player p = (Player) sender;
 			  if (!sender.hasPermission("str.home.others")) {
 				  Location home = configToLoc(p.getName());
 				  p.teleport(home);
-				  MessageManager.getManager().msg(sender, MessageType.INFO, "Добро пожаловать домой!");
+				  MessageManager.getManager().msg(sender, MessageType.INFO, "Р”РѕР±СЂРѕ РїРѕР¶Р°Р»РѕРІР°С‚СЊ РґРѕРјРѕР№!");
 		            return true;
 		        }
 			if(Bukkit.getOnlinePlayers().contains(Bukkit.getPlayerExact(args[0]))) {
 				Player t = (Bukkit.getPlayerExact(args[0]));
 				Location home = configToLoc(t.getName());
 				p.teleport(home);
-				MessageManager.getManager().msg(sender, MessageType.INFO, "Вы телепортировались в дом игрока §6" + t.getName());
+				MessageManager.getManager().msg(sender, MessageType.INFO, "Р’С‹ С‚РµР»РµРїРѕСЂС‚РёСЂРѕРІР°Р»РёСЃСЊ РІ РґРѕРј РёРіСЂРѕРєР° В§6" + t.getName());
 				return true;
 			}			
 			try {
 			Location home = configToLoc(args[0]);
 			p.teleport(home);
-			MessageManager.getManager().msg(sender, MessageType.INFO, "Вы телепортировались в дом игрока §6" + args[0] +" §cВнимание, игрок не в сети");
+			MessageManager.getManager().msg(sender, MessageType.INFO, "Р’С‹ С‚РµР»РµРїРѕСЂС‚РёСЂРѕРІР°Р»РёСЃСЊ РІ РґРѕРј РёРіСЂРѕРєР° В§6" + args[0] +" В§cР’РЅРёРјР°РЅРёРµ, РёРіСЂРѕРє РЅРµ РІ СЃРµС‚Рё");
 			}
 			catch (IllegalArgumentException e) {
-				MessageManager.getManager().msg(sender, MessageType.BAD, "Игрок незарегистрирован и/или не имеет дома");
+				MessageManager.getManager().msg(sender, MessageType.BAD, "РРіСЂРѕРє РЅРµР·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅ РёР»Рё РЅРµ РёРјРµРµС‚ РґРѕРјР°");
 				return true;
 			}
 		}

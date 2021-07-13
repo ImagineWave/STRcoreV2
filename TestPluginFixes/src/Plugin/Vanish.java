@@ -36,11 +36,11 @@ public class Vanish implements CommandExecutor, Listener{
 		List<String> vanishedlist = users.getStringList("users");
 		Player p = (Player) sender;
 		if(!(sender instanceof Player)) {
-			sender.sendMessage("§cOnly for player usage");
+			sender.sendMessage("В§cOnly for player usage");
 			return true;
 		}
 		if(!p.hasPermission("str.vanish")) {
-			MessageManager.getManager().msg(sender, MessageType.BAD, "У вас нет прав для использования невидимости!");
+			MessageManager.getManager().msg(sender, MessageType.BAD, "РЈ РІР°СЃ РЅРµС‚ РїСЂР°РІ");
 			return true;
 		}
 		if(!vanishedlist.contains(p.getName())) {
@@ -57,7 +57,7 @@ public class Vanish implements CommandExecutor, Listener{
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-			MessageManager.getManager().msg(sender, MessageType.GOOD, "Вы вошли в невидимость!");
+			MessageManager.getManager().msg(sender, MessageType.GOOD, "Р’С‹ РІРѕС€Р»Рё РІ РЅРµРІРёРґРёРјРѕСЃС‚СЊ!");
 			return true;
 		}
 		else {
@@ -72,7 +72,7 @@ public class Vanish implements CommandExecutor, Listener{
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-			MessageManager.getManager().msg(sender, MessageType.GOOD, "Вы вышли из невидимости!");
+			MessageManager.getManager().msg(sender, MessageType.GOOD, "Р’С‹ РІС‹С€Р»Рё РёР· РЅРµРІРёРґРёРјРѕСЃС‚Рё!");
 			return true;
 		}
 	}
