@@ -38,21 +38,21 @@ public class Gm implements CommandExecutor {
                         MessageManager.getManager().msg(p, MessageType.GOOD, "Ваш игровой режим: §bsurvival");
                         for(Player pls : Bukkit.getServer().getOnlinePlayers()) {
             				if (pls.hasPermission("str.spy.admin")) {
-            					pls.sendMessage("�7[SPY]: "+p.getName()+" сменил режим игры на survival");
+            					pls.sendMessage("§7[SPY]: "+p.getName()+" сменил режим игры на survival");
             				}
             			}
                         return true;
                     } else if (args[0].equalsIgnoreCase("creative") || args[0].equalsIgnoreCase("c")
                             || args[0].equalsIgnoreCase("1")) {
                     	 if (!sender.hasPermission("str.gamemode.creative")) {
-                         	MessageManager.getManager().msg(p, MessageType.BAD, "У вас нет прав");
+                         	MessageManager.getManager().msg(p, MessageType.BAD, "Хитрец)");
                              return true;
                          }
                         p.setGameMode(org.bukkit.GameMode.CREATIVE);
                         MessageManager.getManager().msg(p, MessageType.GOOD, "Ваш игровой режим: §bcreative");
                         for(Player pls : Bukkit.getServer().getOnlinePlayers()) {
             				if (pls.hasPermission("str.spy.admin")) {
-            					pls.sendMessage("�7[SPY]: "+p.getName()+" сменил режим игры на creative");
+            					pls.sendMessage("§7[SPY]: "+p.getName()+" сменил режим игры на creative");
             				}
             			}
                         return true;
@@ -62,7 +62,7 @@ public class Gm implements CommandExecutor {
                         MessageManager.getManager().msg(p, MessageType.BAD, "Ваш игровой режим: §4adventure");
                         for(Player pls : Bukkit.getServer().getOnlinePlayers()) {
             				if (pls.hasPermission("str.spy.admin")) {
-            					pls.sendMessage("�7[SPY]: "+p.getName()+" сменил режим игры на adventure");
+            					pls.sendMessage("§7[SPY]: "+p.getName()+" сменил режим игры на adventure");
             				}
             			}
                         return true;
@@ -71,7 +71,7 @@ public class Gm implements CommandExecutor {
                         MessageManager.getManager().msg(p, MessageType.GOOD, "Ваш игровой режим: §bspectator");
                         for(Player pls : Bukkit.getServer().getOnlinePlayers()) {
             				if (pls.hasPermission("str.spy.admin")) {
-            					pls.sendMessage("�7[SPY]: "+p.getName()+" сменил режим игры на spectator");
+            					pls.sendMessage("§7[SPY]: "+p.getName()+" сменил режим игры на spectator");
             				}
             			}
                         return true;
@@ -82,50 +82,50 @@ public class Gm implements CommandExecutor {
                 }
                 if (args.length == 2) {
                 	 if (!sender.hasPermission("str.gamemode.others")) {
-                     	MessageManager.getManager().msg(p, MessageType.BAD, "� ��� ��� ���� ��� ��������� ������ ���� ������ �������");
+                     	MessageManager.getManager().msg(p, MessageType.BAD, "У вас нет прав");
                          return true;
                 	 }
                 	Player t = (Bukkit.getPlayerExact(args[1]));
                 	if (args[0].equalsIgnoreCase("survival") || args[0].equalsIgnoreCase("s")
                             || args[0].equalsIgnoreCase("0")) {
                         t.setGameMode(org.bukkit.GameMode.SURVIVAL);
-                        MessageManager.getManager().msg(t, MessageType.GOOD, "��� ������� �����: �bsurvival");
-                        MessageManager.getManager().msg(p, MessageType.GOOD, "�� ���������� ����� ���� �bsurvival�2 ������ �6" + t.getName());
+                        MessageManager.getManager().msg(t, MessageType.GOOD, "Ваш игровой режим: §bsurvival");
+                        MessageManager.getManager().msg(p, MessageType.GOOD, "Вы установили режим §bsurvival§a игроку §6" + t.getName());
                         for(Player pls : Bukkit.getServer().getOnlinePlayers()) {
             				if (pls.hasPermission("str.spy.admin")) {
-            					pls.sendMessage("�7[SPY]: "+p.getName()+" ������ ����� ���� �� survival ������ "+t.getName());
+            					pls.sendMessage("§7[SPY]: "+p.getName()+" установил режим игры survival игроку "+t.getName());
             				}
             			}
                         return true;
                     } else if (args[0].equalsIgnoreCase("creative") || args[0].equalsIgnoreCase("c")
                             || args[0].equalsIgnoreCase("1")) {
                         t.setGameMode(org.bukkit.GameMode.CREATIVE);
-                        MessageManager.getManager().msg(t, MessageType.GOOD, "��� ������� �����: �bcreative");
-                        MessageManager.getManager().msg(p, MessageType.GOOD, "�� ���������� ����� ���� �bcreative�2 ������ �6" + t.getName());
+                        MessageManager.getManager().msg(t, MessageType.GOOD, "Ваш игровой режим: §bcreative");
+                        MessageManager.getManager().msg(p, MessageType.GOOD, "Вы установили режим §bcreative§a игроку §6" + t.getName());
                         for(Player pls : Bukkit.getServer().getOnlinePlayers()) {
             				if (pls.hasPermission("str.spy.admin")) {
-            					pls.sendMessage("�7[SPY]: "+p.getName()+" ������ ����� ���� �� creative ������ "+t.getName());
+            					pls.sendMessage("§7[SPY]: "+p.getName()+" установил режим игры creative игроку "+t.getName());
             				}
             			}
                         return true;
                     } else if (args[0].equalsIgnoreCase("adventure") || args[0].equalsIgnoreCase("a")
                             || args[0].equalsIgnoreCase("2")) {
                         t.setGameMode(org.bukkit.GameMode.ADVENTURE);
-                        MessageManager.getManager().msg(t, MessageType.BAD, "��� ������� �����: �4adventure");
-                        MessageManager.getManager().msg(p, MessageType.GOOD, "�� ���������� ����� ���� �4adventure�2 ������ �6" + t.getName());
+                        MessageManager.getManager().msg(t, MessageType.BAD, "Ваш игровой режим: §4adventure");
+                        MessageManager.getManager().msg(p, MessageType.GOOD, "Вы установили режим §4adventure§a игроку §6" + t.getName());
                         for(Player pls : Bukkit.getServer().getOnlinePlayers()) {
             				if (pls.hasPermission("str.spy.admin")) {
-            					pls.sendMessage("�7[SPY]: "+p.getName()+" ������ ����� ���� �� adventure ������ "+t.getName());
+            					pls.sendMessage("§7[SPY]: "+p.getName()+" установил режим игры adventure игроку "+t.getName());
             				}
             			}
                         return true;
                     } else if (args[0].equalsIgnoreCase("spectator") || args[0].equalsIgnoreCase("3")) {
                         t.setGameMode(GameMode.SPECTATOR);
-                        MessageManager.getManager().msg(t, MessageType.GOOD, "��� ������� �����: �bspectator");
-                        MessageManager.getManager().msg(p, MessageType.GOOD, "�� ���������� ����� ���� �bspectator�2 ������ �6" + t.getName());
+                        MessageManager.getManager().msg(t, MessageType.GOOD, "Ваш игровой режим: §bspectator");
+                        MessageManager.getManager().msg(p, MessageType.GOOD, "Вы установили режим §bspectator§a игроку §6" + t.getName());
                         for(Player pls : Bukkit.getServer().getOnlinePlayers()) {
             				if (pls.hasPermission("str.spy.admin")) {
-            					pls.sendMessage("�7[SPY]: "+p.getName()+" ������ ����� ���� �� spectator ������ "+t.getName());
+            					pls.sendMessage("§7[SPY]: "+p.getName()+" установил режим игры spectator игроку "+t.getName());
             				}
             			}
                         return true;

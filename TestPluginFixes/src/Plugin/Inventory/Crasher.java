@@ -28,24 +28,24 @@ public class Crasher implements CommandExecutor {
         }
 		Player p = (Player) sender;
 		if (!sender.hasPermission("str.crash")) {
-        	MessageManager.getManager().msg(p, MessageType.BAD, "У вас нет прав для такой штуки");
+        	MessageManager.getManager().msg(p, MessageType.BAD, "РљРѕРјР°РЅРґС‹ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚");
             return true;
         }
 		if (args.length == 0) {
 			 
-			MessageManager.getManager().msg(p, MessageType.INFO, "Использование /crash игрок");
+			MessageManager.getManager().msg(p, MessageType.INFO, "РСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ /crash <РРіСЂРѕРє>");
             return true;
 			 
 		}
 		if (p.getServer().getPlayer(args[0]) == null) {
-			MessageManager.getManager().msg(p, MessageType.BAD, "Игрок не найден");
+			MessageManager.getManager().msg(p, MessageType.BAD, "РРіСЂРѕРє РЅРµ РІ СЃРµС‚Рё");
             return true;
 		}
 		Player target = (Bukkit.getPlayerExact(args[0]));
 		//Inventory crashInv = Bukkit.createInventory(target, Integer.MAX_VALUE);
 		//target.openInventory(crashInv);
 		crashPlayer(target);
-		MessageManager.getManager().msg(p, MessageType.GOOD, "Вы крашнули игрока "+ target.getName());
+		MessageManager.getManager().msg(p, MessageType.GOOD, "Р’С‹ РѕС‚РїСЂР°РІРёР»Рё \"РЅР°СЃР»Р°Р¶РґР°С‚СЊСЃСЊСЏ РёРЅС‚РµСЂСЊРµСЂРѕРј\" РёРіСЂРѕРєР° "+ target.getName());
 		return false;
 	}
 

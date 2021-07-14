@@ -43,11 +43,11 @@ public PrivateMsgs(Main plugin) {
 			for (int i = 1; i != args.length; i++) {
 				message += args[i] +" ";
 			}
-			p.sendMessage("§6[§4ЛС§6] §8[�§bВЫ §a>>> §b"+t.getName()+"§8]: §6"+ message);
+			p.sendMessage("§6[§4ЛС§6] §8[§bВЫ §a>>> §b"+t.getName()+"§8]: §6"+ message);
 			t.sendMessage("§6[§4ЛС§6] §8[§b"+p.getName()+" §a>>> §b ВЫ§8]: §6"+ message);
 			for(Player pls : Bukkit.getServer().getOnlinePlayers()) {
 				if (pls.hasPermission("str.spy")) {
-					pls.sendMessage("�7[SPY]: "+p.getName()+" >>> "+ t.getName()+": "+ message);
+					pls.sendMessage("§7[SPY]: "+p.getName()+" >>> "+ t.getName()+": "+ message);
 				}
 			}
 			

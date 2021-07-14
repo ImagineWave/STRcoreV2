@@ -43,6 +43,7 @@ public class TpSpawn implements CommandExecutor {
 				t.teleport(spawn);
 				MessageManager.getManager().msg(sender, MessageType.GOOD, "Вы телепортировали игрока "+ p.getName()+" на спаун");
 				MessageManager.getManager().msg(t, MessageType.GOOD, "Вас телепортировали на спаун");
+				return true;
 			}
 		}
 		if (!sender.hasPermission("str.spawn")) {

@@ -24,16 +24,16 @@ public class InvCheck implements CommandExecutor {
 		Player p = (Player) sender;
 		
 		if (!sender.hasPermission("str.invcheck")) {
-        	MessageManager.getManager().msg(p, MessageType.BAD, "У вас нет прав для проверки инвентарей");
+        	MessageManager.getManager().msg(p, MessageType.BAD, "РЈ РІР°СЃ РЅРµС‚ РїСЂР°РІ");
             return true;
         }
 		 if (args.length == 0) {
 			 
-				MessageManager.getManager().msg(p, MessageType.BAD, "Игрок не найден");
+				MessageManager.getManager().msg(p, MessageType.BAD, "Р’РІРµРґРёС‚Рµ РёРјСЏ РёРіСЂРѕРєР°");
 			 return true;
 		 }
 		if (p.getServer().getPlayer(args[0]) == null) {
-			MessageManager.getManager().msg(p, MessageType.BAD, "Игрок не найден");
+			MessageManager.getManager().msg(p, MessageType.BAD, "РРіСЂРѕРє РЅРµ РІ СЃРµС‚Рё");
             return true;
 		}
 		Player t = (Bukkit.getPlayerExact(args[0]));
@@ -41,7 +41,7 @@ public class InvCheck implements CommandExecutor {
 		p.openInventory(tinv);
 		for(Player pls : Bukkit.getServer().getOnlinePlayers()) {
 			if (pls.hasPermission("str.spy.admin")) {
-				pls.sendMessage("§7[SPY]: "+p.getName()+" Проверил инвентарь игрока "+ t.getName());
+				pls.sendMessage("В§7[SPY]: "+p.getName()+" РїСЂРѕРІРµСЂРёР» РёРЅРІРµРЅС‚Р°СЂСЊ РёРіСЂРѕРєР° "+ t.getName());
 			}
 		}
 		return true;
