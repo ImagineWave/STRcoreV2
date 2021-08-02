@@ -33,7 +33,7 @@ public class Main extends JavaPlugin {
 		getCommand("endercheck").setExecutor(new Plugin.Inventory.EndInvCheck(this));
 		getCommand("invcheck").setExecutor(new Plugin.Inventory.InvCheck(this));
 		getCommand("crash").setExecutor(new Plugin.Inventory.Crasher(this));
-		getCommand("crash").setExecutor(new Plugin.meta.SetPrefix(this));
+		getCommand("setprefix").setExecutor(new Plugin.meta.SetPrefix(this));
 		//Bukkit.getServer().getPluginManager().registerEvents(new Plugin.Fixes.Checkers(this), this);
 		//Bukkit.getServer().getPluginManager().registerEvents(new Plugin.Fixes.AntiXrayListener(this), this);
 		File homes = new File(getDataFolder() + File.separator + "homes.yml");
