@@ -1,17 +1,25 @@
 package Plugin;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import Plugin.MessageManager.MessageType;
 
 public class Gm implements CommandExecutor {
 
 	public Gm(Main plugin) {}
+	private Main plugin;
 	
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -47,7 +55,8 @@ public class Gm implements CommandExecutor {
                     	 if (!sender.hasPermission("str.gamemode.creative")) {
                          	MessageManager.getManager().msg(p, MessageType.BAD, "Хитрец)");
                              return true;
-                         }
+                        }
+                    	
                         p.setGameMode(org.bukkit.GameMode.CREATIVE);
                         MessageManager.getManager().msg(p, MessageType.GOOD, "Ваш игровой режим: §bcreative");
                         for(Player pls : Bukkit.getServer().getOnlinePlayers()) {
@@ -135,6 +144,19 @@ public class Gm implements CommandExecutor {
         
         return true;
 
+    }
+    private void addInvToFile(Player p, ItemStack[] items) {
+    	File inventory = new File(plugin.getDataFolder() + File.separator + "Inventory.yml");
+    	FileConfiguration h = YamlConfiguration.loadConfiguration(inventory);
+    	h.set("inventory."+p.getName()+".creative", items);
+    	try {
+			h.save(inventory);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	//h.getItemStack("inventory."+p.getName()+".creative");
+    	Long lastUsage = h.getLong("inventory."+p.getName()+".creative");
     }
 
 }

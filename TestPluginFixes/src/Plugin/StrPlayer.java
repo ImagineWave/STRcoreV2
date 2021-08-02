@@ -21,7 +21,7 @@ public class StrPlayer {
 	
 	public StrPlayer(String ip, boolean banned, long banTime, String banReason, String bannedBy, boolean muted, long muteTime,
 			String muteReason, String mutedBy, boolean flying, String flyReason, boolean invurable, boolean vanished, boolean saturated,
-			long playTime) {
+			long playTime, String prefix) {
 		this.ip = ip;
 		this.banned = banned;
 		this.banTime = banTime;
@@ -37,8 +37,7 @@ public class StrPlayer {
 		this.vanished = vanished;
 		this.saturated = saturated;
 		this.playTime = playTime;
-		
-		
+		this.prefix = prefix;
 	}
 	
 	public StrPlayer(Player p, Main plugin) {
@@ -60,6 +59,7 @@ public class StrPlayer {
 		this.vanished = spl.getVanished();
 		this.saturated = spl.getSaturated();
 		this.playTime = spl.getPlayTime();
+		this.prefix = spl.getPrefix();
 	}
 
 
@@ -163,7 +163,13 @@ public class StrPlayer {
 	public void setMutedBy(String mutedBy) {
 		this.mutedBy = mutedBy;
 	}
+	public String getPrefix() {
+		return prefix;
+	}
 
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
 
 	
 	// --------------------------------------------------------
@@ -173,11 +179,11 @@ public class StrPlayer {
 	private String ip = "";
 	private Boolean banned = false;
 	private long banTime = 0;
-	private String banReason = "§4Ваш аккаунт был заблокирован";
+	private String banReason = "В§4РІР°С€ Р°РєРєР°СѓРЅС‚ РїРѕР»СѓС‡РёР» Р±Р»РѕРєРёСЂРѕРІРєСѓ";
 	private String bannedBy = "Opperator";
 	private Boolean muted = false;
 	private long muteTime = 0;
-	private String muteReason = "Вы были заглушены";
+	private String muteReason = "Р—Р° РїР»РѕС…РѕРµ РїРѕРІРµРґРµРЅРёРµ";
 	private String mutedBy = "Opperator";
 	private Boolean flying = false;
 	private String flyReason = "";
@@ -185,13 +191,12 @@ public class StrPlayer {
 	private Boolean vanished = false;
 	private Boolean saturated = false;
 	private long playTime = 0;
+	private String prefix = "&2РРіСЂРѕРє";
 	
 	// --------------------------------------------------------
 	public void setPlayerCfg(StrPlayer p) {
 		File cfg = new File(plugin.getDataFolder() + File.separator + "StrPlayers.yml");
 		FileConfiguration f = YamlConfiguration.loadConfiguration(cfg);
-		//f.set(p.getNickname()+"."+p.getIp() );
-		//h.set("locations." + name + ".x", loc.getBlockX());
 		f.set(nickname+".ip",ip);
 		f.set(nickname+".banned",banned);
 		f.set(nickname+".banTime",banTime);
@@ -207,7 +212,7 @@ public class StrPlayer {
 		f.set(nickname+".vanished",vanished);
 		f.set(nickname+".saturated",saturated);
 		f.set(nickname+".playTime",playTime);
-		
+		f.set(nickname+".prefix",prefix);
 		try {
 			f.save(cfg);
 		} catch (IOException e1) {
@@ -235,7 +240,8 @@ public class StrPlayer {
 				f.getBoolean(name+".invurable"),
 				f.getBoolean(name+".vanished"),
 				f.getBoolean(name+".saturated"),
-				f.getLong(name+".playTime"));
+				f.getLong(name+".playTime"),
+				f.getString(name+".prefix"));
 		return p;
 	}
 	
