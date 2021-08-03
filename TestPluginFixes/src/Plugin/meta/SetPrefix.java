@@ -63,6 +63,9 @@ public class SetPrefix implements CommandExecutor{
 	}
 	private void checkPrefixAndBypass(Player p, String prefix) {
 		if(p.hasPermission("str.prefix.bypass")) {
+			if(!isThereShittySymbols(prefix)) {
+				MessageManager.getManager().msg(p, MessageType.BAD, "Никаких §kкринж §cв префиксе");
+			}
 			setPrefixToCFG(p,prefix);
 			setPrefixToGame(p);
 			MessageManager.getManager().msg(p, MessageType.GOOD, "Префикс установлен, перезайдите на сервер");
@@ -82,8 +85,23 @@ public class SetPrefix implements CommandExecutor{
 		}
 		if(!checkSpecSymbols(prefix)) {
 			MessageManager.getManager().msg(p, MessageType.BAD, "Разрешены буквы (A-z) (А-я), цифры и смвол &");
+			return false;
+		}
+		if(isThereShittySymbols(prefix)) {
+			MessageManager.getManager().msg(p, MessageType.BAD, "Никаких §kкринж §cв префиксе");
+			return false;
 		}
 		return true;
+	}
+	private boolean isThereShittySymbols (String prefix) {
+		for (int i = 0; i<prefix.length()-1; i++) {
+			if(prefix.charAt(i)=='&') {
+				if(prefix.charAt(i+1)=='k') {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	private int getPrefixLenth(String prefix) {
 		int length = prefix.length();
