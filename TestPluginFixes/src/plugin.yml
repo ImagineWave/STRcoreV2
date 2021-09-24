@@ -42,3 +42,5 @@ commands:
         usage:
     setprefix:
         usage:
+    setxray:
+        usage:

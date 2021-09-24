@@ -22,10 +22,10 @@ public void MuteCheckers2(AsyncPlayerChatEvent e) {
 	Long duration = spl.getMuteTime();
 	Long qtime = System.currentTimeMillis();
 	String reason = spl.getMuteReason();
-	String msgduration = formatDuration((duration-qtime)/1000);
+	String msgduration = formatDuration2((duration-qtime)/1000);
 	if(duration>qtime) {
 			e.setCancelled(true);
-			MessageManager.getManager().msg(p, MessageType.BAD, "У вас блокировка чата еще �6"+ msgduration + " §c по причине �6" + reason);
+			MessageManager.getManager().msg(p, MessageType.BAD, "У вас блокировка чата еще §6"+ msgduration + " §c по причине §6" + reason);
 			return;
 		}
 }
@@ -60,5 +60,20 @@ public String formatDuration(Long time) {
 	if(seconds != 0) msgduration += stseconds + " second(s) ";
 	return msgduration;
 }
-
+public String formatDuration2(Long time) {
+	long days = time/86400;
+	long hours = time%86400/3600;
+	long minutes = time%86400%3600/60;
+	long seconds = time%86400%3600%60;
+	String stdays = Long.toString(days);
+	String sthours = Long.toString(hours);
+	String stminutes = Long.toString(minutes);
+	String stseconds = Long.toString(seconds);
+	String msgduration = "§6";
+	if(days != 0) msgduration += stdays + " §4Day(s)§6 ";
+	if(hours != 0) msgduration += sthours + " §4Hour(s)§6 ";
+	if(minutes != 0) msgduration += stminutes + " §4Minute(s)§6 ";
+	if(seconds != 0) msgduration += stseconds + " §4Second(s) ";
+	return msgduration;
+}
 }

@@ -10,13 +10,13 @@ import Plugin.Main;
 import Plugin.MessageManager;
 import Plugin.MessageManager.MessageType;
 import Plugin.StrPlayer;
+import RaceRise.RiseOfTheRaceAPI;
 
 public class SetPrefix implements CommandExecutor{
 	private Main plugin;
 	public SetPrefix(Main plugin) {
 		this.plugin = plugin;
 	}
-
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		Player p = (Player) sender;
@@ -63,8 +63,9 @@ public class SetPrefix implements CommandExecutor{
 	}
 	private void checkPrefixAndBypass(Player p, String prefix) {
 		if(p.hasPermission("str.prefix.bypass")) {
-			if(!isThereShittySymbols(prefix)) {
+			if(isThereShittySymbols(prefix)) {
 				MessageManager.getManager().msg(p, MessageType.BAD, "Никаких §kкринж §cв префиксе");
+				return;
 			}
 			setPrefixToCFG(p,prefix);
 			setPrefixToGame(p);
@@ -138,5 +139,35 @@ public class SetPrefix implements CommandExecutor{
 		plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "lp user " + p.getName() + " meta removeprefix 100");
 		plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "lp user " + p.getName() + " meta addprefix 100 &r["+prefix+"&r]");
 		return;
+	}
+	private String modifyRaceAndLevelToPrefix(String race, Integer level) {
+		String output = "";
+		switch(race) {
+			case("Human"):{
+				output = "&e("+level.toString()+")";
+				break;
+			}
+			case("Elf"):{
+				output = "&a("+level.toString()+")";
+				break;
+			}
+			case("Dwarf"):{
+				output = "&9("+level.toString()+")";
+				break;
+			}
+			case("Orc"):{
+				output = "&c("+level.toString()+")";
+				break;
+			}
+			case("Naga"):{
+				output = "&b("+level.toString()+")";
+				break;
+			}
+			case("Sky"):{
+				output = "&f("+level.toString()+")";
+				break;
+			}
+		}
+		return null;
 	}
 }
