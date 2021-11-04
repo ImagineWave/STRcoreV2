@@ -23,7 +23,7 @@ public class SetXray implements CommandExecutor{
 		if (args.length==1) {
 			if(Bukkit.getOnlinePlayers().contains(Bukkit.getPlayerExact(args[0]))) {
 				Player t = (Bukkit.getPlayerExact(args[0]));
-				plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "lp user " + t.getName() + " parrent add xray");
+				plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "lp user " + t.getName() + " parent add xray");
 				return true;
 			}
 			return true;

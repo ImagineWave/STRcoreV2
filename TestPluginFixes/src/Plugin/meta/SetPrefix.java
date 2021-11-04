@@ -10,8 +10,6 @@ import Plugin.Main;
 import Plugin.MessageManager;
 import Plugin.MessageManager.MessageType;
 import Plugin.StrPlayer;
-import RaceRise.RiseOfTheRaceAPI;
-
 public class SetPrefix implements CommandExecutor{
 	private Main plugin;
 	public SetPrefix(Main plugin) {

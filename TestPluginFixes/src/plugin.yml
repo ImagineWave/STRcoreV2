@@ -44,3 +44,11 @@ commands:
         usage:
     setxray:
         usage:
+    xraylist:
+        usage:
+    clancreate:
+        usage:
+    claninvite:
+        usage:
+    clanaccept:
+        usage:

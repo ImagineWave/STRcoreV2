@@ -27,7 +27,7 @@ public class MuteSetter implements CommandExecutor{
 			 return true;
 		 }
 		 if(args.length == 0) {
-				MessageManager.getManager().msg(p, MessageType.INFO, "Использование: /tempmute <player> <time (������)> <�������>");
+				MessageManager.getManager().msg(p, MessageType.INFO, "Использование: /tempmute <player> <time (В секундах)> <причина>");
 				return true;
 		 }
 		 if(args.length == 1) {
@@ -69,6 +69,9 @@ public class MuteSetter implements CommandExecutor{
 	
 	public Boolean canRewriteMute (Player p, Player muter) {
 		StrPlayer spl = new StrPlayer(p,plugin);
+		if(spl.getMutedBy() == null) {
+			return true;
+		}
 		if(spl.getMutedBy().equals(muter.getName())) {
 			return true;
 		}

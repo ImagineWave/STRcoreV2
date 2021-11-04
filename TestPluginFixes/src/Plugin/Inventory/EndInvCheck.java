@@ -33,6 +33,11 @@ public class EndInvCheck implements CommandExecutor {
 			 
 			 Inventory inv = (Inventory)p.getEnderChest();
 			 p.openInventory(inv);
+			 for(Player pls : Bukkit.getServer().getOnlinePlayers()) {
+					if (pls.hasPermission("str.spy.admin")) {
+						pls.sendMessage("§7[SPY]: "+p.getName()+" открыл эндер-сундук");
+					}
+				}
 			 
 			 return true;
 		 }

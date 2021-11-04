@@ -37,6 +37,7 @@ public class AntiXrayListener implements Listener{
 			return;
 		}
 		if(b.getType().equals(Material.DIAMOND_ORE))return;
+		if(b.getType().equals(Material.DEEPSLATE_DIAMOND_ORE))return;
 		if(p.hasPermission("str.admin")) return;
 		if(isOreNear(b)) {
 			Block ore = nearOreXYZ(b);
@@ -50,7 +51,8 @@ public class AntiXrayListener implements Listener{
 				ores.put(p, oreCluster);
 				oreToConfig(p);
 				if(isXrayEnabled(p)){
-					p.sendMessage("¡¿Õ");
+					p.sendMessage("¬ßb–í—ã —á—É–≤—Å—Ç–≤—É–µ—Ç–µ —á—å–µ-—Ç–æ –ø—Ä–∏—Å—Ç–∞–ª—å–Ω–æ–µ –≤–Ω–∏–º–∞–Ω–∏–µ...");
+					return;
 				}
 			}
 			return;
@@ -142,33 +144,48 @@ public class AntiXrayListener implements Listener{
 		int block = h.getInt("AntiXray." + name + ".nonOre");
 		Double xrayValue = h.getDouble("AAXray");
 		Double warnValue = h.getDouble("AWarnXray");
+		if(xrayValue == 0) {
+			h.set("AAXray", 200);
+			h.set("AWarnXray", 200);
+			try {
+				h.save(homes);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		List<String> susPlayers = h.getStringList("suspiciousPlayers");
 		if(ore>2) {
 			Double playerValue = (double) (block/ore);
 			if(playerValue<xrayValue) {
-				plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "ban " + p.getName() + " ßcXray violation ßa"+ playerValue);	
-				Bukkit.broadcastMessage("ß7[ßc—»—“≈Ã¿ß7]: ß6"+ p.getName()+" ß4Á‡·ÎÓÍËÓ‚‡Ì ßaÁ‡ ËÒÔÓÎ¸ÁÓ‚‡ÌËÂ ß6X-RAY");
+				if(!susPlayers.contains(p.getName())) susPlayers.add(p.getName());
+				h.set("suspiciousPlayers", susPlayers);
+				for(Player pls : Bukkit.getServer().getOnlinePlayers()) {
+					if (pls.hasPermission("str.spy")) {
+						pls.sendMessage("¬ß4 "+p.getName()+" ¬ß6 –ü–æ–¥–æ–∑—Ä–µ–≤–∞–µ—Ç—Å—è –≤ –∏—Å–ø–æ–ª—å–∑–æ–≤–∞–Ω–∏–∏ ¬ß4X-RAY");
+					}
+				}
+				try {
+					h.save(homes);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 				return true;
 			}
 			if(playerValue<warnValue) {
-					int warns = h.getInt("AntiXray." + name + ".warn");
-					if(warns==0){
-				plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "lp user " + p.getName() + " parent add xray");	
-				plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "kick " + p.getName() + " ßcXray violation ßa"+ playerValue);	
-				Bukkit.broadcastMessage("ß7[ßc—»—“≈Ã¿ß7]: ß6"+ p.getName()+" ßbÔÓ‰ÓÁÂ‚‡ÂÚÒˇ ßa‚ ËÒÔÓÎ¸ÁÓ‚‡ÌËË ß6X-RAY");
+				if(!susPlayers.contains(p.getName())) susPlayers.add(p.getName());
+				h.set("suspiciousPlayers", susPlayers);
+				for(Player pls : Bukkit.getServer().getOnlinePlayers()) {
+					if (pls.hasPermission("str.spy")) {
+						pls.sendMessage("¬ß4 "+p.getName()+" ¬ß6 –ü–æ–¥–æ–∑—Ä–µ–≤–∞–µ—Ç—Å—è –≤ –∏—Å–ø–æ–ª—å–∑–æ–≤–∞–Ω–∏–∏ ¬ß4X-RAY");
 					}
-					if(warns==2) {
-						plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "ban " + p.getName() + " ßcXray violation ßa"+ playerValue);	
-						Bukkit.broadcastMessage("ß7[ßc—»—“≈Ã¿ß7]: ß6"+ p.getName()+" ß4Á‡·ÎÓÍËÓ‚‡Ì ßaÁ‡ ËÒÔÓÎ¸ÁÓ‚‡ÌËÂ ß6X-RAY");
-						return true;
-					}
-					warns++;
-					h.set("AntiXray." + name + ".warn", warns);
-					try {
-						h.save(homes);
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
-				return false;
+				}
+				try {
+					h.save(homes);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				return true;
 			}
 		}
 		return false;
@@ -177,7 +194,7 @@ public class AntiXrayListener implements Listener{
 		for(int x = -1; x < 2; x++) {
 			for(int y = -1; y < 2; y++) {
 				for (int z = -1; z < 2; z++) {
-					if(b.getRelative(x, y, z).getType().equals(Material.DIAMOND_ORE)) {
+					if((b.getRelative(x, y, z).getType().equals(Material.DIAMOND_ORE))||(b.getRelative(x, y, z).getType().equals(Material.DEEPSLATE_DIAMOND_ORE))) {
 						return true;
 					}
 				}
