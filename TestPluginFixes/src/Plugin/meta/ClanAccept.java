@@ -21,17 +21,16 @@ public class ClanAccept implements CommandExecutor{
 	}
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if((sender.hasPermission("str.clanmember"))&&(!sender.isOp())) {
-			MessageManager.getManager().msg(sender, MessageType.BAD, "Вы уже состоите в клане");
-			return true;
-		}
 		Player p = (Player) sender;
 		joinClan(p);
 		return true;
 	}
 	private void joinClan(Player p) {
 		String clanName = getClanName(p);
-		p.sendMessage(clanName);//TODO УБРАТЬ ПОЗЖЕ
+		if((clanName ==null)||(clanName.equals("0"))) {
+			MessageManager.getManager().msg(p, MessageType.BAD, "У вас нет активных приглашений");
+			return;
+		}
 		File clans = new File(plugin.getDataFolder() + File.separator + "Clans.yml");
 		FileConfiguration c = YamlConfiguration.loadConfiguration(clans);
 		c.set("Players."+p.getName()+".clan", clanName);

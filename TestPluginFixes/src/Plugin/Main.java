@@ -35,12 +35,19 @@ public class Main extends JavaPlugin {
 		getCommand("invcheck").setExecutor(new Plugin.Inventory.InvCheck(this));
 		getCommand("crash").setExecutor(new Plugin.Inventory.Crasher(this));
 		getCommand("setprefix").setExecutor(new Plugin.meta.SetPrefix(this));
+		getCommand("warn").setExecutor(new Plugin.Warns.WarnPlayer(this));
+		//XRAY ПРИКОЛЫ
 		getCommand("setxray").setExecutor(new Plugin.meta.SetXray(this));
 		getCommand("xraylist").setExecutor(new Plugin.Fixes.XrayListCMD(this));
 		//КЛАНОВЫЕ АНЕКДОТЫ
 		getCommand("clancreate").setExecutor(new Plugin.meta.CreateClan(this));
 		getCommand("claninvite").setExecutor(new Plugin.meta.ClanInvite(this));
 		getCommand("clanaccept").setExecutor(new Plugin.meta.ClanAccept(this));
+		getCommand("clandecline").setExecutor(new Plugin.meta.ClanDecline(this));
+		getCommand("clanleave").setExecutor(new Plugin.meta.ClanLeave(this));
+		getCommand("clanmodify").setExecutor(new Plugin.meta.ClanModify(this));
+		getCommand("clanhelp").setExecutor(new Plugin.meta.ClanHelp(this));
+		getCommand("clanchat").setExecutor(new Plugin.meta.ClanChat(this));
 		File homes = new File(getDataFolder() + File.separator + "homes.yml");
 		
 		if (!homes.exists()) {

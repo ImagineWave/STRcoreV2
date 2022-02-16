@@ -16,8 +16,6 @@ commands:
         usage:
     tempmute:
         usage:
-    ccreate:
-        usage:
     pm:
         usage:
         aliases: [w,msg,tell]
@@ -51,4 +49,17 @@ commands:
     claninvite:
         usage:
     clanaccept:
+        usage:
+    clandecline:
+        usage:
+    clanleave:
+        usage:
+    clanmodify:
+        usage:
+    clanhelp:
+        usage:
+    clanchat:
+        usage:
+        aliases: [cc]
+    warn:
         usage:

@@ -42,7 +42,10 @@ public class CreateClan implements CommandExecutor{
 			MessageManager.getManager().msg(sender, MessageType.BAD, "Это имя клана уже занято");
 			return true;
 		}
-		createClan(p, clanName, clanTag);
+		if(checkTagAndBypass(p, clanTag)) {
+			createClan(p, clanName, clanTag);
+			return true;
+		}
 		return true;
 	}
 	private void createClan(Player p, String name, String tag) {
@@ -73,5 +76,66 @@ public class CreateClan implements CommandExecutor{
 			return false;
 		}
 		return true;
+	}
+	private boolean checkTagAndBypass(Player p, String prefix) {
+		if(p.hasPermission("str.prefix.bypass")) {
+			if(isThereShittySymbols(prefix)) {
+				MessageManager.getManager().msg(p, MessageType.BAD, "Никаких §kкринж §cв теге");
+				return false;
+			}
+			return true;
+		}
+		if(isPrefixAllowed(p,prefix)) {
+			return true;
+		}
+		return false;
+	}
+	private boolean isPrefixAllowed(Player p, String prefix) {
+		if(getPrefixLenth(prefix)>7) {
+			MessageManager.getManager().msg(p, MessageType.BAD, "Длина Тега не более 7 симоволов");
+			return false;
+		}
+		if(!checkSpecSymbols(prefix)) {
+			MessageManager.getManager().msg(p, MessageType.BAD, "Разрешены буквы (A-z) (А-я), цифры и смвол &");
+			return false;
+		}
+		if(isThereShittySymbols(prefix)) {
+			MessageManager.getManager().msg(p, MessageType.BAD, "Никаких §kкринж §cв теге");
+			return false;
+		}
+		return true;
+	}
+	private boolean isThereShittySymbols (String prefix) {
+		for (int i = 0; i<prefix.length()-1; i++) {
+			if(prefix.charAt(i)=='&') {
+				if(prefix.charAt(i+1)=='k') {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	private int getPrefixLenth(String prefix) {
+		int length = prefix.length();
+		return length;
+	}
+	
+	private boolean checkSpecSymbols(String prefix) {
+		int count = 0;
+		for( int i = 0; i <prefix.length()-1; i++) {
+			if(!Character.isAlphabetic(prefix.charAt(i))) {
+				if(!Character.isDigit(prefix.charAt(i))){
+					if(!Character.isSpaceChar(prefix.charAt(i))) {
+						if(prefix.charAt(i) != '&') {
+							count++;
+						}
+					}
+				}
+			}
+		}
+		if (count==0) {
+			return true;
+		}
+		return false;
 	}
 }

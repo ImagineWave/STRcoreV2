@@ -31,7 +31,7 @@ public class BedTp implements CommandExecutor{
 		try{
 			 	Location bed = configToLoc(args[0]);
 				p.teleport(bed);
-				MessageManager.getManager().msg(sender, MessageType.INFO, "Добро пожаловть в дом игрока §6" + args[0]);
+				MessageManager.getManager().msg(sender, MessageType.INFO, "Добро пожаловать в дом игрока §6" + args[0]);
 				}
 				catch (IllegalArgumentException e) {
 					MessageManager.getManager().msg(sender, MessageType.BAD, "Игрока не существует / не имеет кровати");

@@ -64,17 +64,18 @@ public class ClanInvite implements CommandExecutor{
 		t.sendMessage("§aВы были приглашены в клан §6"+name+" §aигроком §6"+p.getName());
 		p.sendMessage("§aВы приглаcили в клан §6"+name+" §aигрока §6"+t.getName());
 		tc.setText("§2§l[ПРИНЯТЬ]");
-		tc.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/say test")); //TODO ИСПРАВИТЬ НА ДРУГУЮ КОМАНДУ
+		tc.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/clanaccept")); 
 		t.spigot().sendMessage(tc);
 		TextComponent tc2 = new TextComponent();
 		tc2.setText("§4§l[ОТКЛОНИТЬ]");
-		tc2.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/say testDecline")); //TODO ИСПРАВИТЬ НА ДРУГУЮ КОМАНДУ
+		tc2.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/clandecline"));
 		t.spigot().sendMessage(tc2);
 	}
 	private String getClanName(Player p) {
 		File clans = new File(plugin.getDataFolder() + File.separator + "Clans.yml");
 		FileConfiguration c = YamlConfiguration.loadConfiguration(clans);
 		String output = c.getString("Players."+p.getName()+".clan");
+		
 		return output;
 	}
 	

@@ -2,6 +2,7 @@ package Plugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -9,6 +10,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Damageable;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,6 +18,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffect;
@@ -91,6 +94,18 @@ public void mobProtect(CreatureSpawnEvent e) {
 		}
 	}
 	return;
+}
+@EventHandler
+	public void killCat(EntityDeathEvent e) {
+		ArrayList<EntityType> animal = new ArrayList<EntityType>();
+		animal.add(EntityType.CAT);
+		animal.add(EntityType.OCELOT);
+		if(!animal.contains(e.getEntity().getType())) return;
+		if (!(e.getEntity() instanceof Damageable)) return;
+		if (e.getEntity().getKiller()== null) return;
+		Player p = e.getEntity().getKiller();
+		Bukkit.broadcastMessage("§6"+p.getName()+" §4Убил кошку");
+		p.setHealth(0);
 }
 @EventHandler
 public void playerSpawnsWitherInEnd(PlayerInteractEvent e) {
