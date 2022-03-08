@@ -2,6 +2,7 @@ package Plugin.meta;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -25,15 +26,15 @@ public class ClanInvite implements CommandExecutor{
 	}
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if(!sender.hasPermission("str.clan.owner")) {
-			MessageManager.getManager().msg(sender, MessageType.BAD, "У вас нет прав");
-			return true;
-		}
 		if(!sender.hasPermission("str.clanmember")) {
 			MessageManager.getManager().msg(sender, MessageType.BAD, "Вы не состоите в клане");
 			return true;
 		}
 		Player p = (Player) sender;
+		if(!(checkOwner(p)||checkOfficer(p))) {
+			MessageManager.getManager().msg(sender, MessageType.BAD, "У вас нет прав");
+			return true;
+		}
 		if(args.length!=1) {
 			MessageManager.getManager().msg(sender, MessageType.BAD, "Использование /claninvite <Ник>");
 			return true;
@@ -53,7 +54,7 @@ public class ClanInvite implements CommandExecutor{
 	private void PlayerInvitesTarget(Player p, Player t) {
 		File clans = new File(plugin.getDataFolder() + File.separator + "Clans.yml");
 		FileConfiguration c = YamlConfiguration.loadConfiguration(clans);
-		String name = getClanName(p);
+		String name = getClanName(p.getName());
 		c.set("Players."+t.getName()+".invite",name);
 		try {
 			c.save(clans);
@@ -71,12 +72,25 @@ public class ClanInvite implements CommandExecutor{
 		tc2.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/clandecline"));
 		t.spigot().sendMessage(tc2);
 	}
-	private String getClanName(Player p) {
+	private String getClanName(String p) {
 		File clans = new File(plugin.getDataFolder() + File.separator + "Clans.yml");
 		FileConfiguration c = YamlConfiguration.loadConfiguration(clans);
-		String output = c.getString("Players."+p.getName()+".clan");
-		
+		String output = c.getString("Players."+p+".clan");
 		return output;
+	}
+	private boolean checkOwner(Player p) {
+		File clans = new File(plugin.getDataFolder() + File.separator + "Clans.yml");
+		FileConfiguration c = YamlConfiguration.loadConfiguration(clans);
+		String clanName = getClanName(p.getName());
+		String ownerName = c.getString("Clans."+clanName+".owner");
+		return p.getName().equals(ownerName);
+	}
+	private boolean checkOfficer(Player p) {
+		File clans = new File(plugin.getDataFolder() + File.separator + "Clans.yml");
+		FileConfiguration c = YamlConfiguration.loadConfiguration(clans);
+		String clanName = getClanName(p.getName());
+		List<String> officers = c.getStringList("Clans."+clanName+".officers");
+		return officers.contains(p.getName());
 	}
 	
 }

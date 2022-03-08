@@ -31,6 +31,10 @@ public class ClanChat implements CommandExecutor{
 			return true;
 		}
 		Player p = (Player) sender;
+		if(getClanName(p).equals("0")) {
+			MessageManager.getManager().msg(sender, MessageType.BAD, "Вы не состоите в клане");
+			return true;
+		}
 		String message = "";
 		for (int i = 0; i != args.length; i++) {
 			message += args[i] +" ";

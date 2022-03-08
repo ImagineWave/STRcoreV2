@@ -2,6 +2,7 @@ package Plugin.meta;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -43,6 +44,9 @@ public class ClanLeave implements CommandExecutor{
 		String clanName = getClanName(p);
 		plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "lp user "+p.getName()+" parent remove clan."+clanName);
 		c.set("Players."+p.getName()+".clan", "0");
+		List<String> listmembers = c.getStringList("Clans."+clanName+".members");
+		listmembers.remove(p.getName());
+		c.set("Clans."+clanName+".members", listmembers);
 		MessageManager.getManager().msg(p, MessageType.GOOD, "Вы покинули клан §6"+clanName+"§a перезайдите в игру для обновления в TAB");
 		try {
 			c.save(clans);

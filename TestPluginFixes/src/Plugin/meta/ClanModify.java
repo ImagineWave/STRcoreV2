@@ -24,16 +24,12 @@ public class ClanModify implements CommandExecutor{
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if(!sender.hasPermission("str.clan.owner")) {
-			MessageManager.getManager().msg(sender, MessageType.BAD, "У вас нет прав");
-			return true;
-		}
 		if(!sender.hasPermission("str.clanmember")) {
 			MessageManager.getManager().msg(sender, MessageType.BAD, "Вы не состоите в клане");
 			return true;
 		}
 		if(args.length < 1) {
-			MessageManager.getManager().msg(sender, MessageType.INFO, "/clanmodify tag/kick/delete, tag/playerName/clanName");
+			MessageManager.getManager().msg(sender, MessageType.INFO, "/clanmodify tag/kick/promote/demote/delete, tag/playerName/clanName");
 			return true;
 		}
 		String option = args[0];
@@ -51,6 +47,14 @@ public class ClanModify implements CommandExecutor{
 			}
 			case("delete"):{
 				deleteClanName(p,args[1]);
+				break;
+			}
+			case("promote"):{
+				promotePlayer(p, args[1]);
+				break;
+			}
+			case("demote"):{
+				demotePlayer(p, args[1]);
 				break;
 			}
 			default:{
@@ -79,6 +83,9 @@ public class ClanModify implements CommandExecutor{
 		}
 		File clans = new File(plugin.getDataFolder() + File.separator + "Clans.yml");
 		FileConfiguration c = YamlConfiguration.loadConfiguration(clans);
+		List<String> listmembers = c.getStringList("Clans."+clanName+".members");
+		listmembers.remove(name);
+		c.set("Clans."+clanName+".members", listmembers);
 		c.set("Players."+name+".clan", "0");
 		try {
 			c.save(clans);
@@ -185,5 +192,55 @@ public class ClanModify implements CommandExecutor{
 		}
 		return false;
 	}
-	
+	private boolean checkOwner(Player p) {
+		File clans = new File(plugin.getDataFolder() + File.separator + "Clans.yml");
+		FileConfiguration c = YamlConfiguration.loadConfiguration(clans);
+		String clanName = getClanName(p.getName());
+		String ownerName = c.getString("Clans."+clanName+".owner");
+		return p.getName().equals(ownerName);
+	}
+	private void promotePlayer(Player sender, String target) {
+		String clanName = getClanName(sender.getName());
+		String targetsClan = getClanName(target);
+		if(!checkOwner(sender)) {
+			MessageManager.getManager().msg(sender, MessageType.BAD, "У вас нет прав");
+			return;
+		}
+		if(!clanName.equals(targetsClan)) {
+			MessageManager.getManager().msg(sender, MessageType.BAD, "Игрок из другого клана");
+			return;
+		}
+		File clans = new File(plugin.getDataFolder() + File.separator + "Clans.yml");
+		FileConfiguration c = YamlConfiguration.loadConfiguration(clans);
+		List<String> officers = c.getStringList("Clans."+clanName+".officers");
+		officers.add(target);
+		c.set("Clans."+clanName+".officers", officers);
+		try {
+			c.save(clans);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	private void demotePlayer(Player sender, String target) {
+		String clanName = getClanName(sender.getName());
+		String targetsClan = getClanName(target);
+		if(!checkOwner(sender)) {
+			MessageManager.getManager().msg(sender, MessageType.BAD, "У вас нет прав");
+			return;
+		}
+		if(!clanName.equals(targetsClan)) {
+			MessageManager.getManager().msg(sender, MessageType.BAD, "Игрок из другого клана");
+			return;
+		}
+		File clans = new File(plugin.getDataFolder() + File.separator + "Clans.yml");
+		FileConfiguration c = YamlConfiguration.loadConfiguration(clans);
+		List<String> officers = c.getStringList("Clans."+clanName+".officers");
+		officers.remove(target);
+		c.set("Clans."+clanName+".officers", officers);
+		try {
+			c.save(clans);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

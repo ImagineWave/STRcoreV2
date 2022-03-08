@@ -50,6 +50,7 @@ public Handler(Main plugin) {
 		p.teleport(spawn);
 		Bukkit.broadcastMessage("Поприветствуем игрока " + p.getName()+"§a на §b§lSTR§amine!");
 		p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 600, 4), true);
+		p.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 20 * 600, 4), true);
 		p.setBedSpawnLocation(spawn, true);
 		home.locToConfig(p.getName(),spawn); // ��������� ����� ���� �� ������
 		try {
@@ -108,18 +109,29 @@ public void mobProtect(CreatureSpawnEvent e) {
 		p.setHealth(0);
 }
 @EventHandler
-public void playerSpawnsWitherInEnd(PlayerInteractEvent e) {
+public void playerSpawnsWitherInNether(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
 		if(p.isOp()) return;
-	if(!p.getLocation().getWorld().getName().equalsIgnoreCase("world_the_end"))return;
+	if(p.getLocation().getWorld().getName().equalsIgnoreCase("world_nether"))return;
 	if((p.getInventory().getItemInMainHand().getType().equals(Material.WITHER_SKELETON_SKULL)) || (p.getInventory().getItemInOffHand().getType().equals(Material.WITHER_SKELETON_SKULL))) {
 		e.setCancelled(true);
-		p.sendMessage("§4призывать визера в мире world_the_end запрещено");
+		p.sendMessage("§4призывать визера разрешено только мире world_nether");
 		return;
 	}
 	return;
 }
-
+@EventHandler
+public void playerSpawnsCrystals(PlayerInteractEvent e) {
+		Player p = e.getPlayer();
+		if(p.isOp()) return;
+	if(!p.getLocation().getWorld().getName().equalsIgnoreCase("world_the_end"))return;
+	if((p.getInventory().getItemInMainHand().getType().equals(Material.END_CRYSTAL)) || (p.getInventory().getItemInOffHand().getType().equals(Material.WITHER_SKELETON_SKULL))) {
+		e.setCancelled(true);
+		p.sendMessage("§4Использовать эту вещь можно только в мире world_the_end");
+		return;
+	}
+	return;
+}
 
 public Location configToLoc (String name) {		
 	 File homes = new File(plugin.getDataFolder() + File.separator + "homes.yml");

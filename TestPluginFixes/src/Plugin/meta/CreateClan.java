@@ -2,6 +2,7 @@ package Plugin.meta;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.command.Command;
@@ -55,9 +56,13 @@ public class CreateClan implements CommandExecutor{
 		plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "lp group clan."+name+" meta setsuffix &f["+tag+"&f]");
 		plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "lp group clan."+name+" permission set str.clanmember true");
 		plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "lp user "+p.getName()+" parent add clan."+name);
-		plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "lp user "+p.getName()+" permission set str.clan.owner true");
+		plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "lp user "+p.getName()+" permission set str.clan.owner true");//TODO УБРАТЬ
 		//Добавить клан в файл
 		c.set("Players."+p.getName()+".clan", name);
+		c.set("Clans."+name+".owner", p.getName());
+		List<String> listmembers = new ArrayList<>();
+		listmembers.add(p.getName());
+		c.set("Clans."+name+".members", listmembers);
 		List<String> list = c.getStringList("clansList");
 		list.add(name);
 		c.set("clansList", list);
