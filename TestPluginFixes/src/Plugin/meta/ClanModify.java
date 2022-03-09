@@ -106,6 +106,13 @@ public class ClanModify implements CommandExecutor{
 		File clans = new File(plugin.getDataFolder() + File.separator + "Clans.yml");
 		FileConfiguration c = YamlConfiguration.loadConfiguration(clans);
 		List<String> list = c.getStringList("clansList");
+		List<String> listmembers = c.getStringList("Clans."+clanName+".members");
+		for(String member: listmembers) {
+			plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "lp user "+member+" parent remove clan."+clanName);
+			c.set("Players."+member+".clan", "0");
+		}
+		listmembers.clear();
+		c.set("Clans."+clanName+".members", listmembers);
 		list.remove(clan);
 		c.set("clansList", list);
 		try {
