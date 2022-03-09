@@ -32,19 +32,18 @@ public class TpHome implements CommandExecutor {
 			MessageManager.getManager().msg(sender, MessageType.BAD, "Only players can use this command");
 		return true;	
 		}
-		if (args.length == 0) {
 		Player p = (Player) sender;
 		if (!p.hasPermission("str.home")){
 			MessageManager.getManager().msg(p, MessageType.BAD, "У вас нет прав");
 			return true;
 		}
+		if (args.length == 0) {
 		Location home = configToLoc(p.getName());
 		//configToLoc(p.getName());
 		p.teleport(home);
 		MessageManager.getManager().msg(sender, MessageType.INFO, "Добро пожаловать домой!");
 		}
 		if (args.length == 1) {
-			Player p = (Player) sender;
 			  if (!sender.hasPermission("str.home.others")) {
 				  Location home = configToLoc(p.getName());
 				  p.teleport(home);
