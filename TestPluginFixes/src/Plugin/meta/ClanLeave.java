@@ -30,10 +30,6 @@ public class ClanLeave implements CommandExecutor{
 			MessageManager.getManager().msg(sender, MessageType.BAD, "Вы не состоите в клане");
 			return true;
 		}
-		if(sender.hasPermission("str.clan.owner")) {
-			MessageManager.getManager().msg(sender, MessageType.BAD, "Владелец не может покинуть клан, используйте /clanmodify delete <название>");
-			return true;
-		}
 		Player p = (Player) sender;
 		leaveClan(p);
 		return true;
