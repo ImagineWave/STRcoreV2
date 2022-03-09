@@ -34,7 +34,7 @@ public class ClanAccept implements CommandExecutor{
 			MessageManager.getManager().msg(p, MessageType.BAD, "У вас нет активных приглашений");
 			return;
 		}
-		if(!(clanName ==null)||(inviteName.equals("0"))) {
+		if(!((clanName ==null)||(inviteName.equals("0")))) {
 			MessageManager.getManager().msg(p, MessageType.BAD, "Сначала покиньте ваш клан!");
 			return;
 		}
