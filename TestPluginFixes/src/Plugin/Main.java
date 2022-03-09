@@ -48,6 +48,7 @@ public class Main extends JavaPlugin {
 		getCommand("clanmodify").setExecutor(new Plugin.meta.ClanModify(this));
 		getCommand("clanhelp").setExecutor(new Plugin.meta.ClanHelp(this));
 		getCommand("clanchat").setExecutor(new Plugin.meta.ClanChat(this));
+		getCommand("clanlist").setExecutor(new Plugin.meta.ClanList(this));
 		File homes = new File(getDataFolder() + File.separator + "homes.yml");
 		
 		if (!homes.exists()) {

@@ -61,5 +61,7 @@ commands:
     clanchat:
         usage:
         aliases: [cc]
+    clanlist:
+        usage:
     warn:
         usage:
