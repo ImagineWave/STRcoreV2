@@ -39,6 +39,14 @@ public Handler(Main plugin) {
 	Player p = e.getPlayer();
 	String name = p.getName();
 	MessageManager.getManager().msg(p, MessageType.INFO, "Добро пожаловать на сервер, "+ name);
+	if(DrDoctor_Dew()) {
+		MessageManager.getManager().msg(p, MessageType.INFO, "Сегодня у Doctor_Dew §6§lДень Рождения");
+		MessageManager.getManager().msg(p, MessageType.INFO, "Пинганите его в ДС @Doctor_Dew");
+	}
+	if(DrReyziBoy()) {
+		MessageManager.getManager().msg(p, MessageType.INFO, "Сегодня у ReyziBoy §6§lДень Рождения");
+		MessageManager.getManager().msg(p, MessageType.INFO, "Пинганите его в ДС");
+	}
 	File players = new File(plugin.getDataFolder() + File.separator + "players.yml");
 	FileConfiguration users = YamlConfiguration.loadConfiguration(players);
 	List<String> list = users.getStringList("users");//govno ebanoe
@@ -124,12 +132,14 @@ public void playerSpawnsWitherInNether(PlayerInteractEvent e) {
 public void playerSpawnsCrystals(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
 		if(p.isOp()) return;
-	if(!p.getLocation().getWorld().getName().equalsIgnoreCase("world_the_end"))return;
-	if((p.getInventory().getItemInMainHand().getType().equals(Material.END_CRYSTAL)) || (p.getInventory().getItemInOffHand().getType().equals(Material.WITHER_SKELETON_SKULL))) {
-		e.setCancelled(true);
-		p.sendMessage("§4Использовать эту вещь можно только в мире world_the_end");
-		return;
+	if(p.getLocation().getWorld().getName().equalsIgnoreCase("world_the_end")) {
+		if((p.getInventory().getItemInMainHand().getType().equals(Material.END_CRYSTAL)) || (p.getInventory().getItemInOffHand().getType().equals(Material.END_CRYSTAL))) {
+			e.setCancelled(true);
+			p.sendMessage("§4Использовать эту вещь можно только в мире world_the_end");
+			return;
+		}
 	}
+	
 	return;
 }
 
@@ -153,13 +163,13 @@ public Location SpawnToLoc () {
 }
 
 public boolean DrReyziBoy() {
-	if ((System.currentTimeMillis() > 1618531200) && (System.currentTimeMillis() < 1618617599)) {	
+	if ((System.currentTimeMillis() > 1650049201000l) && (System.currentTimeMillis() < 1650135599000l)) {	
 	return true;
 	}
 	return false;
 }
 public boolean DrDoctor_Dew() {
-	if ((System.currentTimeMillis() > 1619222400) && (System.currentTimeMillis() < 1619308799)) {	
+	if ((System.currentTimeMillis() > 1650481201000l) && (System.currentTimeMillis() < 1650567599000l)) {	
 	return true;
 	}
 	return false;
