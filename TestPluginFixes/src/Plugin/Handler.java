@@ -132,7 +132,7 @@ public void playerSpawnsWitherInNether(PlayerInteractEvent e) {
 public void playerSpawnsCrystals(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
 		if(p.isOp()) return;
-	if(p.getLocation().getWorld().getName().equalsIgnoreCase("world_the_end")) {
+	if(!p.getLocation().getWorld().getName().equalsIgnoreCase("world_the_end")) {
 		if((p.getInventory().getItemInMainHand().getType().equals(Material.END_CRYSTAL)) || (p.getInventory().getItemInOffHand().getType().equals(Material.END_CRYSTAL))) {
 			e.setCancelled(true);
 			p.sendMessage("§4Использовать эту вещь можно только в мире world_the_end");
