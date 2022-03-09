@@ -213,6 +213,10 @@ public class ClanModify implements CommandExecutor{
 		File clans = new File(plugin.getDataFolder() + File.separator + "Clans.yml");
 		FileConfiguration c = YamlConfiguration.loadConfiguration(clans);
 		List<String> officers = c.getStringList("Clans."+clanName+".officers");
+		if(officers.contains(target)) {
+			MessageManager.getManager().msg(sender, MessageType.BAD, "Игрок "+target+" уже старейшина");
+			return;
+		}
 		officers.add(target);
 		c.set("Clans."+clanName+".officers", officers);
 		try {
@@ -220,6 +224,8 @@ public class ClanModify implements CommandExecutor{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		MessageManager.getManager().msg(sender, MessageType.GOOD, "Вы повысили "+target+" до старейшины");
+		return;
 	}
 	private void demotePlayer(Player sender, String target) {
 		String clanName = getClanName(sender.getName());
@@ -235,6 +241,10 @@ public class ClanModify implements CommandExecutor{
 		File clans = new File(plugin.getDataFolder() + File.separator + "Clans.yml");
 		FileConfiguration c = YamlConfiguration.loadConfiguration(clans);
 		List<String> officers = c.getStringList("Clans."+clanName+".officers");
+		if(!officers.contains(target)) {
+			MessageManager.getManager().msg(sender, MessageType.BAD, "Игрок "+target+" не старейшина");
+			return;
+		}
 		officers.remove(target);
 		c.set("Clans."+clanName+".officers", officers);
 		try {
@@ -242,5 +252,7 @@ public class ClanModify implements CommandExecutor{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		MessageManager.getManager().msg(sender, MessageType.GOOD, "Вы понизили "+target+" до участника");
+		return;
 	}
 }
