@@ -19,6 +19,7 @@ public class ClanHelp implements CommandExecutor{
 		MessageManager.getManager().msg(sender, MessageType.INFO, "/clancreate <имя клана> <клан-тег> - создать клан");
 		MessageManager.getManager().msg(sender, MessageType.INFO, "/claninvite <игрок> - пригласить игрока в клан");
 		MessageManager.getManager().msg(sender, MessageType.INFO, "/clanleave - выйти из клана");
+		MessageManager.getManager().msg(sender, MessageType.INFO, "/clanlist - список участников клана");
 		MessageManager.getManager().msg(sender, MessageType.INFO, "/clanmodify - редактировать клан");
 		MessageManager.getManager().msg(sender, MessageType.INFO, "/clanchat <сообщение> или /сс <сообщение> - чат клана");
 		return true;

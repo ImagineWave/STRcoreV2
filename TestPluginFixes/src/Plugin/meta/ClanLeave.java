@@ -31,6 +31,10 @@ public class ClanLeave implements CommandExecutor{
 			return true;
 		}
 		Player p = (Player) sender;
+		if(checkOwner(p)) {
+			MessageManager.getManager().msg(sender, MessageType.BAD, "Владелец не может покинуть клан, используйте /clanmodify delete <название>");
+			return true;
+		}
 		leaveClan(p);
 		return true;
 	}
@@ -55,5 +59,18 @@ public class ClanLeave implements CommandExecutor{
 		FileConfiguration c = YamlConfiguration.loadConfiguration(clans);
 		String output = c.getString("Players."+p.getName()+".clan");
 		return output;
+	}
+	private String getClanName(String p) {
+		File clans = new File(plugin.getDataFolder() + File.separator + "Clans.yml");
+		FileConfiguration c = YamlConfiguration.loadConfiguration(clans);
+		String output = c.getString("Players."+p+".clan");
+		return output;
+	}
+	private boolean checkOwner(Player p) {
+		File clans = new File(plugin.getDataFolder() + File.separator + "Clans.yml");
+		FileConfiguration c = YamlConfiguration.loadConfiguration(clans);
+		String clanName = getClanName(p.getName());
+		String ownerName = c.getString("Clans."+clanName+".owner");
+		return p.getName().equals(ownerName);
 	}
 }
