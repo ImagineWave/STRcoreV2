@@ -34,6 +34,10 @@ public class ClanModify implements CommandExecutor{
 		}
 		String option = args[0];
 		Player p = (Player) sender;
+		if(!checkOwner(p)) {
+			MessageManager.getManager().msg(sender, MessageType.BAD, "У вас нет прав!");
+			return true;
+		}
 		switch (option) {
 			case("tag"):{
 				if(checkTagAndBypass(p,args[1])) {
