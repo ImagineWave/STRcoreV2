@@ -65,3 +65,5 @@ commands:
         usage:
     warn:
         usage:
+    tnttoggle:
+        usage:

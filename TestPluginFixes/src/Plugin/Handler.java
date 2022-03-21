@@ -13,6 +13,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -104,6 +105,7 @@ public void mobProtect(CreatureSpawnEvent e) {
 	}
 	return;
 }
+
 @EventHandler
 	public void killCat(EntityDeathEvent e) {
 		ArrayList<EntityType> animal = new ArrayList<EntityType>();
