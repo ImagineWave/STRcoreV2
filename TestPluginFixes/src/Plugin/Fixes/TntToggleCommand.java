@@ -8,11 +8,17 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
 
+import Plugin.Main;
 import Plugin.MessageManager;
 import Plugin.MessageManager.MessageType;
 import net.md_5.bungee.api.ChatColor;
 
 public class TntToggleCommand implements CommandExecutor, Listener{
+	
+	private Main plugin;
+	public TntToggleCommand(Main plugin) {
+		this.plugin = plugin;
+	}
 	
 	private boolean tntToggle = false;
 

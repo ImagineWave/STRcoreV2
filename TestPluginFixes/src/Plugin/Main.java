@@ -20,6 +20,7 @@ public class Main extends JavaPlugin {
 		Bukkit.getServer().getPluginManager().registerEvents(new Vanish(this), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new BedSetCfg(this), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Plugin.Fixes.AntiXrayListener(this), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new Plugin.Fixes.TntToggleCommand(this), this);
 		getCommand("bedtp").setExecutor(new BedTp(this));
 		getCommand("gm").setExecutor(new Gm(this));
 		getCommand("sethome").setExecutor(new Home(this));
@@ -36,6 +37,7 @@ public class Main extends JavaPlugin {
 		getCommand("crash").setExecutor(new Plugin.Inventory.Crasher(this));
 		getCommand("setprefix").setExecutor(new Plugin.meta.SetPrefix(this));
 		getCommand("warn").setExecutor(new Plugin.Warns.WarnPlayer(this));
+		getCommand("tnttoggle").setExecutor(new Plugin.Fixes.TntToggleCommand(this));
 		//XRAY ПРИКОЛЫ
 		getCommand("setxray").setExecutor(new Plugin.meta.SetXray(this));
 		getCommand("xraylist").setExecutor(new Plugin.Fixes.XrayListCMD(this));
