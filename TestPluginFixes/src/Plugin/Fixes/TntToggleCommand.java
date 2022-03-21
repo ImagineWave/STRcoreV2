@@ -4,9 +4,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.entity.ExplosionPrimeEvent;
 
 import Plugin.Main;
 import Plugin.MessageManager;
@@ -43,7 +45,7 @@ public class TntToggleCommand implements CommandExecutor, Listener{
 		return true;
 	}
 	@EventHandler
-	public void onTnt(EntityExplodeEvent e) {
+	public void onTnt(ExplosionPrimeEvent e) {
 		if(TntToggleCommand.tntToggle) {
 			e.setCancelled(true);
 		}
