@@ -20,7 +20,7 @@ public class TntToggleCommand implements CommandExecutor, Listener{
 		this.plugin = plugin;
 	}
 	
-	private boolean tntToggle = false;
+	private static boolean tntToggle = false;
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -28,14 +28,14 @@ public class TntToggleCommand implements CommandExecutor, Listener{
 			MessageManager.getManager().msg(sender, MessageType.BAD, "У вас нет прав");
 			return true;
 		}
-		if(tntToggle) {
-			tntToggle = false;
+		if(TntToggleCommand.tntToggle) {
+			TntToggleCommand.tntToggle = false;
 			MessageManager.getManager().msg(sender, MessageType.INFO, "Вы ВКЛЮЧИЛИ взрывы");
 			Bukkit.broadcastMessage(ChatColor.GREEN + "Взрывы ВКЛЮЧЕНЫ");
 			return true;
 		}
-		if(!tntToggle) {
-			tntToggle = true;
+		if(!TntToggleCommand.tntToggle) {
+			TntToggleCommand.tntToggle = true;
 			MessageManager.getManager().msg(sender, MessageType.INFO, "Вы ВЫКЛЮЧИЛИ взрывы");
 			Bukkit.broadcastMessage(ChatColor.DARK_RED + "Взрывы ВЫКЛЮЧЕНЫ");
 			return true;
@@ -44,7 +44,7 @@ public class TntToggleCommand implements CommandExecutor, Listener{
 	}
 	@EventHandler
 	public void onTnt(EntityExplodeEvent e) {
-		if(tntToggle) {
+		if(TntToggleCommand.tntToggle) {
 			e.setCancelled(true);
 		}
 	}
