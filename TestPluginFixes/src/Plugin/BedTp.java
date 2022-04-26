@@ -32,6 +32,11 @@ public class BedTp implements CommandExecutor{
 			 	Location bed = configToLoc(args[0]);
 				p.teleport(bed);
 				MessageManager.getManager().msg(sender, MessageType.INFO, "Добро пожаловать в дом игрока §6" + args[0]);
+				for(Player pls : Bukkit.getServer().getOnlinePlayers()) {
+    				if (pls.hasPermission("str.spy.admin")) {
+    					pls.sendMessage("§7[SPY]: "+p.getName()+" телепортировался на кровать игрока "+ args[0]);
+    				}
+    			}
 				}
 				catch (IllegalArgumentException e) {
 					MessageManager.getManager().msg(sender, MessageType.BAD, "Игрока не существует / не имеет кровати");

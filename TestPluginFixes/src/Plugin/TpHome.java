@@ -55,6 +55,11 @@ public class TpHome implements CommandExecutor {
 				Location home = configToLoc(t.getName());
 				p.teleport(home);
 				MessageManager.getManager().msg(sender, MessageType.INFO, "Вы телепортировались в дом игрока §6" + t.getName());
+				for(Player pls : Bukkit.getServer().getOnlinePlayers()) {
+    				if (pls.hasPermission("str.spy.admin")) {
+    					pls.sendMessage("§7[SPY]: "+p.getName()+" телепортировался в дом игрока "+args[0]);
+    				}
+    			}
 				return true;
 			}			
 			try {

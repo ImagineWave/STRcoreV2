@@ -21,10 +21,7 @@ public class Home implements CommandExecutor {
 		this.plugin = plugin;	
 	}
 	public boolean checksender (CommandSender sender) {
-		if (sender instanceof Player) {
-			return false;
-		}
-		return true;
+		return sender instanceof Player;
 	}
 	@Override
 	public boolean onCommand (CommandSender sender, Command cmd, String label, String[] args) {
