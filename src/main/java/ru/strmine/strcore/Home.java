@@ -18,12 +18,12 @@ public class Home implements CommandExecutor {
 	public Home(Main plugin) {
 		this.plugin = plugin;	
 	}
-	public boolean checksender (CommandSender sender) {
+	public boolean checkSender (CommandSender sender) {
 		return sender instanceof Player;
 	}
 	@Override
 	public boolean onCommand (CommandSender sender, Command cmd, String label, String[] args) {
-			if (!checksender(sender)){
+			if (!checkSender(sender)){
 				MessageManager.getManager().msg(sender, MessageManager.MessageType.BAD, "Only players can use this command");
 			return true;	
 			}
