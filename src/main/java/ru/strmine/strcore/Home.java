@@ -23,7 +23,7 @@ public class Home implements CommandExecutor {
 	}
 	@Override
 	public boolean onCommand (CommandSender sender, Command cmd, String label, String[] args) {
-			if (checksender(sender)) {
+			if (!checksender(sender)){
 				MessageManager.getManager().msg(sender, MessageManager.MessageType.BAD, "Only players can use this command");
 			return true;	
 			}
