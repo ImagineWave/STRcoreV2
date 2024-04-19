@@ -1,5 +1,5 @@
 name: strmine
-main: Plugin.Main
+main: plugin.Main
 description: test3
 version: 1.1
 api-version: 1.13
