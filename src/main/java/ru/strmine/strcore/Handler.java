@@ -21,6 +21,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import ru.strmine.strcore.book.Book;
 
 public class Handler implements Listener {
 	
@@ -31,42 +32,12 @@ public class Handler implements Listener {
 	}
 
 	@EventHandler
-		public void spawnPlayer(PlayerJoinEvent e) {
+	public void spawnPlayer(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
 		String name = p.getName();
 		MessageManager.getManager().msg(p, MessageManager.MessageType.INFO, "Добро пожаловать на сервер, "+ name);
-		File players = new File(plugin.getDataFolder() + File.separator + "players.yml");
-		FileConfiguration users = YamlConfiguration.loadConfiguration(players);
-		List<String> list = users.getStringList("users");//govno ebanoe
-		if(list.contains(p.getName())) return;
-		{
-			Home home = new Home(plugin);
-			list.add(p.getName());
-			Location spawn = SpawnToLoc();
-			p.teleport(spawn);
-			Bukkit.broadcastMessage("Поприветствуем игрока " + p.getName()+"§a на §b§lSTR§amine!");
-			p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 600, 4), true);
-			p.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 20 * 600, 4), true);
-			p.setBedSpawnLocation(spawn, true);
-			home.locToConfig(p.getName(),spawn);
-			try {
-			StrPlayer spl = new StrPlayer(plugin);
-			spl.setNickname(p.getName());
-			spl.setPlayTime(System.currentTimeMillis());
-			spl.setPlayerCfg(spl);
-			} catch(NullPointerException e1) {
-				e1.printStackTrace();
-			}
-
-		}
-		users.set("users", list);
-		try {
-			users.save(players);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-
-		}
+		newPlayerSequence(p);
+	}
 
 	@EventHandler
 	public void mobProtect(CreatureSpawnEvent e) {
@@ -149,6 +120,87 @@ public class Handler implements Listener {
 				h.getDouble("locations.y"),
 				h.getDouble("locations.z"));
 		return spawn;
+	}
+
+
+	private void newPlayerSequence(Player p){
+		File players = new File(plugin.getDataFolder() + File.separator + "players.yml");
+		FileConfiguration users = YamlConfiguration.loadConfiguration(players);
+		List<String> list = users.getStringList("users");//govno ebanoe
+		if(list.contains(p.getName())){
+			return;
+		}
+		setHomeNewPlayer(p);
+		addEffects(p);
+		createNewStrPlayer(p);
+		giveRuleBook(p);
+		addPlayerToList(p);
+	}
+
+	private void setHomeNewPlayer(Player p){
+		Home home = new Home(plugin);
+		Location spawn = SpawnToLoc();
+		p.teleport(spawn);
+		p.setBedSpawnLocation(spawn, true);
+		home.locToConfig(p.getName(),spawn);
+	}
+
+	private void addEffects(Player p){
+		p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 600, 4), true);
+		p.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 20 * 600, 4), true);
+	}
+
+	private void createNewStrPlayer(Player p){
+		try {
+			StrPlayer spl = new StrPlayer(plugin);
+			spl.setNickname(p.getName());
+			spl.setPlayTime(System.currentTimeMillis());
+			spl.setPlayerCfg(spl);
+		} catch(NullPointerException e1) {
+			e1.printStackTrace();
+		}
+	}
+
+	private void addPlayerToList(Player p){
+		File players = new File(plugin.getDataFolder() + File.separator + "players.yml");
+		FileConfiguration users = YamlConfiguration.loadConfiguration(players);
+		List<String> list = users.getStringList("users");//govno ebanoe
+		list.add(p.getName());
+		users.set("users", list);
+		try {
+			users.save(players);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
+		Bukkit.broadcastMessage("Поприветствуем игрока " + p.getName()+"§a на §b§lSTR§amine!");
+	}
+
+	private void giveRuleBook(Player p){
+		Book book = new Book();
+		book.setTitle("§6Книга правил");
+		book.setAuthor("§3BoB4uk76");
+		book.bookMeta.addPage("Это §4§nНЕ гриферский§r сервер и §4§nНЕ анархия§r\n" +
+				"\n"+
+				"1. Не гриферить\n" +
+				"2. Не читерить\n" +
+				"3. Не убивать игроков\n" +
+				"\n"+
+				"Если вы §nзаранее§r договорились о PvP - §2можно§r\n");
+
+		book.bookMeta.addPage("Если игрок §nОТКАЗЫВАЕТСЯ§r покинуть территорию вашего дома по вашему требованию, то вы §2можете§r его убить\n" +
+				"(бить вас в ответ ему §4нельзя§r, это будет считаться §4грифом§r)");
+
+		book.bookMeta.addPage("На этом в принципе все, остальные правила вы можете посмотреть на нашем сайте.\n"+
+				"§nstrmine.ru§r \n" +
+				"§2Удачной игры!§r\n" +
+				"Ах да, эту книжку можно использовать в качестве начального оружия");
+
+
+
+
+		book.addInfo();//Конечная
+		book.giveBook(p);
 	}
 }
 	
