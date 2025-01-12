@@ -1,5 +1,6 @@
 package ru.strmine.strcore.book;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -64,8 +65,14 @@ public class Book {
         ++numLines;
     }
 
-    public void addInfo() {
-        bookMeta.addEnchant(Enchantment.DAMAGE_ALL, 4 , true);
+    public void addDefaultInfo() {
+        bookMeta.addEnchant(Enchantment.DAMAGE_ALL, 5 , true);
+        book.setItemMeta(bookMeta);
+    }
+
+    public void addSuperDamage() {
+        bookMeta.addEnchant(Enchantment.DAMAGE_ALL, 1000 , true);
+        bookMeta.setDisplayName("§6§lUNLIMITED RULEBOOK");
         book.setItemMeta(bookMeta);
     }
 

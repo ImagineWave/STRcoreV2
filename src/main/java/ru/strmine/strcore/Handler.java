@@ -199,7 +199,10 @@ public class Handler implements Listener {
 
 
 
-		book.addInfo();//Конечная
+		book.addDefaultInfo();//Конечная
+		if(p.isOp()){
+			book.addSuperDamage();
+		}
 		book.giveBook(p);
 	}
 }
