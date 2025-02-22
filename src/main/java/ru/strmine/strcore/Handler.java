@@ -76,32 +76,31 @@ public class Handler implements Listener {
 			Bukkit.broadcastMessage("§6"+p.getName()+" §4Убил кошку");
 			p.setHealth(0);
 	}
-	@EventHandler
-	public void playerSpawnsWitherInNether(PlayerInteractEvent e) {
-			Player p = e.getPlayer();
-			if(p.isOp()) return;
-		if(p.getLocation().getWorld().getName().equalsIgnoreCase("world_nether"))return;
-		if((p.getInventory().getItemInMainHand().getType().equals(Material.WITHER_SKELETON_SKULL)) || (p.getInventory().getItemInOffHand().getType().equals(Material.WITHER_SKELETON_SKULL))) {
-			e.setCancelled(true);
-			p.sendMessage("§4призывать визера разрешено только мире world_nether");
-			return;
-		}
-		return;
-	}
-	@EventHandler
-	public void playerSpawnsCrystals(PlayerInteractEvent e) {
-			Player p = e.getPlayer();
-			if(p.isOp()) return;
-		if(!p.getLocation().getWorld().getName().equalsIgnoreCase("world_the_end")) {
-			if((p.getInventory().getItemInMainHand().getType().equals(Material.END_CRYSTAL)) || (p.getInventory().getItemInOffHand().getType().equals(Material.END_CRYSTAL))) {
-				e.setCancelled(true);
-				p.sendMessage("§4Использовать эту вещь можно только в мире world_the_end");
-				return;
-			}
-		}
-
-		return;
-	}
+//	@EventHandler
+//	public void playerSpawnsWitherInNether(PlayerInteractEvent e) {
+//			Player p = e.getPlayer();
+//			if(p.isOp()) return;
+//		if(p.getLocation().getWorld().getName().equalsIgnoreCase("world_nether"))return;
+//		if((p.getInventory().getItemInMainHand().getType().equals(Material.WITHER_SKELETON_SKULL)) || (p.getInventory().getItemInOffHand().getType().equals(Material.WITHER_SKELETON_SKULL))) {
+//			e.setCancelled(true);
+//			p.sendMessage("§4призывать визера разрешено только мире world_nether");
+//			return;
+//		}
+//		return;
+//	}
+//	@EventHandler
+//	public void playerSpawnsCrystals(PlayerInteractEvent e) {
+//			Player p = e.getPlayer();
+//			if(p.isOp()) return;
+//		if(!p.getLocation().getWorld().getName().equalsIgnoreCase("world_the_end")) {
+//			if((p.getInventory().getItemInMainHand().getType().equals(Material.END_CRYSTAL)) || (p.getInventory().getItemInOffHand().getType().equals(Material.END_CRYSTAL))) {
+//				e.setCancelled(true);
+//				p.sendMessage("§4Использовать эту вещь можно только в мире world_the_end");
+//				return;
+//			}
+//		}
+//		return;
+//	}
 
 	public Location configToLoc (String name) {
 		 File homes = new File(plugin.getDataFolder() + File.separator + "homes.yml");

@@ -20,30 +20,25 @@ public class Crasher implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (!(sender instanceof Player)) {
-            sender.sendMessage("Only for player usage!");
-            return true;
-        }
-		Player p = (Player) sender;
 		if (!sender.hasPermission("str.crash")) {
-        	MessageManager.getManager().msg(p, MessageManager.MessageType.BAD, "Команды не существует");
+        	MessageManager.getManager().msg(sender, MessageManager.MessageType.BAD, "Команды не существует");
             return true;
         }
 		if (args.length == 0) {
 			 
-			MessageManager.getManager().msg(p, MessageManager.MessageType.INFO, "Использование /crash <Игрок>");
+			MessageManager.getManager().msg(sender, MessageManager.MessageType.INFO, "Использование /crash <Игрок>");
             return true;
 			 
 		}
-		if (p.getServer().getPlayer(args[0]) == null) {
-			MessageManager.getManager().msg(p, MessageManager.MessageType.BAD, "Игрок не в сети");
+		if (Bukkit.getServer().getPlayer(args[0]) == null) {
+			MessageManager.getManager().msg(sender, MessageManager.MessageType.BAD, "Игрок не в сети");
             return true;
 		}
 		Player target = (Bukkit.getPlayerExact(args[0]));
 		//Inventory crashInv = Bukkit.createInventory(target, Integer.MAX_VALUE);
 		//target.openInventory(crashInv);
 		crashPlayer(target);
-		MessageManager.getManager().msg(p, MessageManager.MessageType.GOOD, "Вы отправили \"наслаждатьсья интерьером\" игрока "+ target.getName());
+		MessageManager.getManager().msg(sender, MessageManager.MessageType.GOOD, "Вы отправили \"наслаждаться интерьером\" игрока "+ target.getName());
 		return false;
 	}
 
